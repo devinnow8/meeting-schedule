@@ -1,5 +1,6 @@
 import React from "react";
 import RouteComponent from "./routes";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   return (

@@ -16,7 +16,6 @@ const Login = () => {
             <p className="desc">Sign up free with Google</p>
             <div className="signup-btn">
               <div className="google">
-                {/* <img src={googleLogo} className="img-fluid" alt="" />{" "} */}
                 <GoogleIconSvg />
                 <span className="google-text">Google</span>
               </div>

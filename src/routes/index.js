@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
   // const { user: authUser } = useSelector(x => x.auth);
   const authUser = false;
 
-  if (!authUser) {
+  if (authUser) {
     return <Navigate to="/login" />;
   }
   return children;
