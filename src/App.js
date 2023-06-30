@@ -1,11 +1,13 @@
-import React from 'react'
+import React from "react";
+import RouteComponent from "./routes";
 
 const App = () => {
   return (
-    <div>
+    <div className="app">
       Meeting Scheduler
+      <RouteComponent />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
