@@ -3,7 +3,6 @@
   padding: 64px 0px;
   .title {
     font-size: 50px;
-    font-weight: 700;
     color: #031415;
     font-family: "Jost500";
   }
@@ -19,19 +18,20 @@
     .google {
       display: flex;
       margin: auto;
+      align-items: center;
       justify-content: center;
-      border: 1px solid #868686;
-      padding: 12px 0px;
-      background: transparent;
-      width: 200px;
-      border-radius: 8px;
-      font-weight: 600;
+      width: fit-content;
+      // border: 1px solid #868686;
+      // border-radius: 8px;
       font-size: 18px;
       font-family: "Jost500";
       cursor: pointer;
       .google-text {
         margin-left: 12px;
       }
+    }
+    .h89sdfsf {
+      display: flex;
     }
   }
 }
