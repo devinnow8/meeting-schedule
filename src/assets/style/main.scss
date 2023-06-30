@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: "Jost400";
+  src: url("../fonts/jost/Jost-400-Book.ttf");
+}
+@font-face {
+  font-family: "Jost500";
+  src: url("../fonts/jost/Jost-500-Medium.ttf");
+}
+@font-face {
+  font-family: "Jost600";
+  src: url("../fonts/jost/Jost-600-Semi.ttf");
+}
+@font-face {
+  font-family: "Jost700";
+  src: url("../fonts/jost/Jost-700-Bold.ttf");
+}
+
+@import "./login.scss";

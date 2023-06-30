@@ -8,7 +8,7 @@ import Layout from "../shared/layout";
 
 const PrivateRoute = ({ children }) => {
   // const { user: authUser } = useSelector(x => x.auth);
-  const authUser = true;
+  const authUser = false;
 
   if (!authUser) {
     return <Navigate to="/login" />;
