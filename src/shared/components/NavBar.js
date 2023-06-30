@@ -25,6 +25,7 @@ const NavBar = () => {
   const logOut = () => {
     googleLogout();
     dispatch(set_user_details({}));
+    setDropdown(false);
     navigate("/login");
   };
 
