@@ -6,6 +6,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.main-layout {
+  height: 100vh;
+  width: 100vw;
+  .inner-layout {
+    height: calc(100% - 55px);
+  }
+}
+
 @font-face {
   font-family: "Jost400";
   src: url("../fonts/jost/Jost-400-Book.ttf");
@@ -26,3 +34,4 @@ body {
 @import "./login.scss";
 @import "./home.scss";
 @import "./nav-bar.scss";
+@import "./dashboard.scss";

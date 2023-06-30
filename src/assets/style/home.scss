@@ -1,67 +1,69 @@
 .calender-bg {
-  background: url("https://images.pexels.com/photos/949587/pexels-photo-949587.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") no-repeat;
+  background: url("https://images.pexels.com/photos/949587/pexels-photo-949587.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
+    no-repeat;
   background-position: center;
   background-size: cover;
   position: relative;
-  height: 100vh;
+  height: 100%;
+  z-index: -1;
 }
 .calender-sidebar {
-	position: fixed;
-	right: 0;
-	height: 100%;
-	top: 0;
-	z-index: 9999;
-	&__main {
-		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  right: 0;
+  height: 100%;
+  top: 0;
+  z-index: 9999;
+  &__main {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     background-color: white;
-		width: 330px;
-		padding: 20px;
-		height: 100%;
-		h2 {
-			color: #126fd6;
-			font-family: 'Jost500';
-			font-size: 22px;
-		}
-		img {
-			width: 100%;
-			margin: 12px 0px;
-		}
-		&--btn {
-			.google {
-				display: flex;
-				align-items: center;
-				margin: auto;
-				justify-content: center;
-				border: 1px solid #126fd6;
-				padding: 12px 0px;
-				background: transparent;
-				width: 100%;
-				border-radius: 8px;
-				font-weight: 600;
-				font-size: 18px;
-				font-family: 'Jost500';
-				cursor: pointer;
-				margin-bottom: 12px;
-				> svg {
-					margin-right: 10px;
-				}
-			}
-		}
-		ul {
-			padding-inline-start: initial;
+    width: 330px;
+    padding: 20px;
+    height: 100%;
+    h2 {
+      color: #126fd6;
+      font-family: "Jost500";
+      font-size: 22px;
+    }
+    img {
+      width: 100%;
+      margin: 12px 0px;
+    }
+    &--btn {
+      .google {
+        display: flex;
+        align-items: center;
+        margin: auto;
+        justify-content: center;
+        border: 1px solid #126fd6;
+        padding: 12px 0px;
+        background: transparent;
+        width: 100%;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 18px;
+        font-family: "Jost500";
+        cursor: pointer;
+        margin-bottom: 12px;
+        > svg {
+          margin-right: 10px;
+        }
+      }
+    }
+    ul {
+      padding-inline-start: initial;
       margin-top: 20px;
-			li {
-				list-style: none;
+      li {
+        list-style: none;
         display: flex;
         align-items: flex-start;
         line-height: 24px;
         margin-bottom: 10px;
-				color: #717171;
-				img {
-					width: 16px;
+        color: #717171;
+        img {
+          width: 16px;
           margin-right: 8px;
-				}
-			}
-		}
-	}
+        }
+      }
+    }
+  }
 }

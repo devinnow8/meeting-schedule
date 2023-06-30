@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
+import { set_user_details } from "../../redux/login/action";
 import { ReactComponent as GoogleIconSvg } from "../../assets/images/google-icon.svg";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -19,7 +24,15 @@ const Login = () => {
           }
         )
         .then((res) => {
-          console.log("39urjflkdfdg", res);
+          dispatch(
+            set_user_details({
+              name: res.data.name,
+              email: res.data.email,
+              id: res.data.id,
+              picture: res.data.picture
+            })
+          );
+          navigate("/");
         })
         .catch((err) => console.log(err));
     }
