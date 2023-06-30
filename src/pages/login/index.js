@@ -13,18 +13,18 @@ const Login = () => {
               Voluptatem reiciendis amet dignissimos voluptas quasi nam? Ratione
               rerum in ex, cupiditate provident voluptatum odit ipsam labor
             </p>
-            <p>Sign up free with Google or Microsoft.</p>
+            <p className="desc">Sign up free with Google</p>
             <div className="signup-btn">
-              <button className="google">
+              <div className="google">
                 {/* <img src={googleLogo} className="img-fluid" alt="" />{" "} */}
                 <GoogleIconSvg />
-                <spa>Google</spa>
-              </button>
+                <span className="google-text">Google</span>
+              </div>
             </div>
-            <p>OR</p>
-            <p>
+            {/* <p>OR</p>
+            <p className="desc">
               <a href="">Sign up free with email.</a> No credit card required
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
