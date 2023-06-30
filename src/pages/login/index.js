@@ -1,14 +1,34 @@
-import React from "react";
-import { GoogleLogin } from "@react-oauth/google";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useGoogleLogin } from "@react-oauth/google";
 import { ReactComponent as GoogleIconSvg } from "../../assets/images/google-icon.svg";
 
 const Login = () => {
-  const responseMessage = (response) => {
-    console.log(response);
-  };
-  const errorMessage = (error) => {
-    console.log(error);
-  };
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    if (user.access_token !== undefined) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json"
+            }
+          }
+        )
+        .then((res) => {
+          console.log("39urjflkdfdg", res);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
+
+  const onLogin = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error)
+  });
 
   return (
     <section className="signup-hero">
@@ -21,14 +41,14 @@ const Login = () => {
             </p>
             <p className="desc">Sign up free with Google</p>
             <div className="signup-btn">
-              <div className="google">
-                <GoogleLogin
+              <div className="google" onClick={onLogin}>
+                {/* <GoogleLogin
                   className="h89sdfsf"
                   onSuccess={responseMessage}
                   onError={errorMessage}
-                />
-                {/* <GoogleIconSvg />
-                <span className="google-text">Google</span> */}
+                /> */}
+                <GoogleIconSvg />
+                <span className="google-text">Google</span>
               </div>
             </div>
             {/* <p>OR</p>
