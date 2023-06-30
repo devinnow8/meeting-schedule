@@ -35,9 +35,13 @@ const Login = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <h1 className="title">Take control of your time, one meeting at a time.</h1>
+            <h1 className="title">
+              Take control of your time, one meeting at a time.
+            </h1>
             <p className="desc">
-            Empower your time management with our smart scheduling platform. Seamlessly coordinate meetings, optimize productivity, and regain control of your calendar.
+              Empower your time management with our smart scheduling platform.
+              Seamlessly coordinate meetings, optimize productivity, and regain
+              control of your calendar.
             </p>
             <p className="desc">Sign up free with Google</p>
             <div className="signup-btn">
