@@ -147,7 +147,7 @@ const Home = () => {
         <div className="calender-sidebar">
           <div className="calender-sidebar__main">
             <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit</h2>
-            <img src={calenderIcon} className="img-fluid" alt="" />
+            <img src={calenderIcon} className="calender-img" alt="" />
             <div className="calender-sidebar__main--btn">
               <div className="google" onClick={() => setService("calender")}>
                 <GoogleIconSvg />
@@ -157,7 +157,7 @@ const Home = () => {
               </div>
               <div className="google" onClick={() => setService("gmail")}>
                 <GoogleIconSvg />
-                <span className="google-text">Google</span>
+                <span className="google-text">Sign in & Authorize Gmail</span>
               </div>
             </div>
             <ul>
