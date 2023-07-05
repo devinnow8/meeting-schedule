@@ -1,7 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11,26 +10,19 @@ body {
   height: 100vh;
   width: 100vw;
   .inner-layout {
-    height: calc(100% - 55px);
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    height: calc(100% - 130px);
   }
 }
 
-@font-face {
-  font-family: "Jost400";
-  src: url("../fonts/jost/Jost-400-Book.ttf");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+body {
+  font-family: 'Inter', sans-serif;
 }
-@font-face {
-  font-family: "Jost500";
-  src: url("../fonts/jost/Jost-500-Medium.ttf");
-}
-@font-face {
-  font-family: "Jost600";
-  src: url("../fonts/jost/Jost-600-Semi.ttf");
-}
-@font-face {
-  font-family: "Jost700";
-  src: url("../fonts/jost/Jost-700-Bold.ttf");
-}
+$primary-color: #FF5B00;
+$content-color: #848484;
 
 @import "./login.scss";
 @import "./home.scss";

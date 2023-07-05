@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Lato", "Arial", sans-serif;
 }
 
 /* HEADINGS */
@@ -35,70 +34,48 @@ h2 {
   position: relative;
 }
 
-.nav-wrapper {
-  width: 100%;
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 0;
-  background-color: #fff;
-}
-
-.grad-bar {
-  width: 100%;
-  height: 5px;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  -webkit-animation: gradbar 15s ease infinite;
-  -moz-animation: gradbar 15s ease infinite;
-  animation: gradbar 15s ease infinite;
-}
-
-/* NAVIGATION */
-
-.navbar {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  align-items: center;
-  height: 50px;
-  // overflow: hidden;
-}
-
-.logo {
-  margin-left: 20px;
-}
-
-.navbar img {
-  width: auto;
-  height: 33px;
-  cursor: pointer;
-  justify-self: start;
-}
-
-.navbar ul {
-  list-style: none;
-  display: grid;
-  // grid-template-columns: repeat(6, 1fr);
-  justify-self: end;
-  margin-right: 20px;
+.header {
+  padding: 12px 0px;
+  background-color: #F8F3EF;
   position: relative;
-}
-
-.nav-item a {
-  color: #000;
-  font-size: 0.9rem;
-  font-weight: 400;
-  text-decoration: none;
-  transition: color 0.3s ease-out;
-}
-
-.nav-item a:hover {
-  color: #3498db;
-}
-
-.nav-item img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50px;
+  z-index: 9999;
+  .navbar {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    height: 50px;
+    img {
+      width: auto;
+      height: 33px;
+      cursor: pointer;
+      justify-self: start;
+    }
+    ul {
+      list-style: none;
+      display: grid;
+      // grid-template-columns: repeat(6, 1fr);
+      justify-self: end;
+      margin-right: 20px;
+      position: relative;
+      .nav-item {
+        a {
+          color: #000;
+          font-size: 0.9rem;
+          font-weight: 400;
+          text-decoration: none;
+          transition: color 0.3s ease-out;
+          &:hover {
+            color: #3498db;
+          }
+        }
+        img {
+          width: 36px;
+          height: 36px;
+          border-radius: 50px;
+        }
+      }
+    }
+  }
 }
 
 .user-dropdown {
@@ -122,7 +99,6 @@ h2 {
     .user-details {
       .user-name {
         display: block;
-        font-family: "Jost500";
       }
     }
   }
@@ -139,7 +115,6 @@ h2 {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: "Jost500";
       user-select: none;
     }
   }
@@ -348,7 +323,6 @@ input {
     height: calc(100vh - 55px);
     transform: translate(-101%);
     text-align: center;
-    // overflow: hidden;
   }
 
   .navbar li {

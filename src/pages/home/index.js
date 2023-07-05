@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import calenderIcon from "../../assets/images/calender.png";
+import calenderIcon from "../../assets/images/calneder2.png";
+import googleCalender from "../../assets/images/google-calendar-1.png";
+import gmailIcon from "../../assets/images/gmail.png";
 import checkIcon from "../../assets/images/check.png";
 import { ReactComponent as GoogleIconSvg } from "../../assets/images/google-icon.svg";
 
@@ -10,10 +12,10 @@ const Home = () => {
     "168070709261-77jstlj3s4hdq75lb6t5jsdurf0jp2iu.apps.googleusercontent.com";
   const API_KEY = "AIzaSyB-iV-p2fiF8KTv_hl5mlO0ADr0XZyhRe0";
   const CALENDER_DISCOVERY_DOC = [
-    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
   ];
   const GMAIL_DISCOVERY_DOC = [
-    "https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"
+    "https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest",
   ];
 
   // const SCOPES = "https://www.googleapis.com/auth/calendar";
@@ -49,14 +51,14 @@ const Home = () => {
     await gapi.client.init({
       apiKey: API_KEY,
       discoveryDocs:
-        service === "calender" ? CALENDER_DISCOVERY_DOC : GMAIL_DISCOVERY_DOC
+        service === "calender" ? CALENDER_DISCOVERY_DOC : GMAIL_DISCOVERY_DOC,
     });
     gapiInited = true;
 
     if (accessToken && expiresIn) {
       gapi.client.setToken({
         access_token: accessToken,
-        expires_in: expiresIn
+        expires_in: expiresIn,
       });
       // getUpcomingEvents();
     }
@@ -66,7 +68,7 @@ const Home = () => {
     tokenClient = google.accounts.oauth2.initTokenClient({
       client_id: CLIENT_ID,
       scope: service === "calender" ? CALENDER_SCOPES : GMAIL_SCOPES,
-      callback: "" // defined later
+      callback: "", // defined later
     });
 
     gisInited = true;
@@ -102,12 +104,12 @@ const Home = () => {
     let response;
     try {
       const request = {
-        "calendarId": "primary",
-        "timeMin": new Date().toISOString(),
-        "showDeleted": false,
-        "singleEvents": true,
-        "maxResults": 10,
-        "orderBy": "startTime"
+        calendarId: "primary",
+        timeMin: new Date().toISOString(),
+        showDeleted: false,
+        singleEvents: true,
+        maxResults: 10,
+        orderBy: "startTime",
       };
       response = await gapi.client.calendar.events.list(request);
     } catch (err) {
@@ -133,12 +135,20 @@ const Home = () => {
 
   return (
     <>
-      <div className="calender-bg">
+      <div className="meeting-schedule">
         <div className="container">
           <div className="row">
-            <div className="col-md-8">
-              <div className="left">
-                <h1 className="text-white">content here</h1>
+            <div className="col-md-9">
+              <p className="display">Displaying 0-0 of 0 Events</p>
+              <div className="meeting-schedule__card">
+                <div className="meeting-schedule__header">
+                  <ul>
+                    <li className="active">New</li>
+                    <li>Scheduling</li>
+                    <li>Scheduled</li>
+                  </ul>
+                </div>
+                <div className="meeting-schedule__content">cccc</div>
               </div>
             </div>
           </div>
@@ -146,30 +156,19 @@ const Home = () => {
 
         <div className="calender-sidebar">
           <div className="calender-sidebar__main">
-            <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit</h2>
             <img src={calenderIcon} className="calender-img" alt="" />
             <div className="calender-sidebar__main--btn">
               <div className="google" onClick={() => setService("calender")}>
-                <GoogleIconSvg />
-                <span className="google-text">
-                  Sign in & Authorize Calender
-                </span>
+                {/* <GoogleIconSvg /> */}
+                <img src={gmailIcon} alt="" />
+                <span className="google-text">Connect your Gmail</span>
               </div>
               <div className="google" onClick={() => setService("gmail")}>
-                <GoogleIconSvg />
-                <span className="google-text">Sign in & Authorize Gmail</span>
+                <img src={googleCalender} alt="" />
+                {/* <GoogleIconSvg /> */}
+                <span className="google-text">Connect your Calendar</span>
               </div>
             </div>
-            <ul>
-              <li>
-                <img src={checkIcon} alt="" /> Lorem ipsum dolor sit amet
-                consectetur, adipis
-              </li>
-              <li>
-                <img src={checkIcon} alt="" /> Lorem ipsum dolor sit amet
-                consectetur, adipis
-              </li>
-            </ul>
           </div>
         </div>
       </div>

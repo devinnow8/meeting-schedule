@@ -30,9 +30,8 @@ const NavBar = () => {
   };
 
   return (
-    <div className="page-wrapper">
-      <div className="nav-wrapper">
-        <div className="grad-bar"></div>
+    <header className="header">
+      <div className="container">
         <nav className="navbar">
           <img src={logo} alt="Company Logo" className="logo" />
           <div className="menu-toggle" id="mobile-menu">
@@ -71,7 +70,7 @@ const NavBar = () => {
           )}
         </nav>
       </div>
-    </div>
+    </header>
   );
 };
 
