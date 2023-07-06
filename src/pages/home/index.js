@@ -3,6 +3,7 @@ import calenderIcon from "../../assets/images/calneder2.png";
 import googleCalender from "../../assets/images/google-calendar-1.png";
 import gmailIcon from "../../assets/images/gmail.png";
 import checkIcon from "../../assets/images/check.png";
+import calIcon from "../../assets/images/cal-icon.png";
 import { ReactComponent as GoogleIconSvg } from "../../assets/images/google-icon.svg";
 
 const Home = () => {
@@ -148,7 +149,11 @@ const Home = () => {
                     <li>Scheduled</li>
                   </ul>
                 </div>
-                <div className="meeting-schedule__content">cccc</div>
+                <div className="meeting-schedule__content">
+                  <img src={calIcon} className="img-fluid" alt="" />
+                  <h5>No Events Yet</h5>
+                  <p>Share event type links to schedule events</p>
+                </div>
               </div>
             </div>
           </div>

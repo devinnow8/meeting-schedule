@@ -33,9 +33,19 @@
   &__content {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 400px;
     padding: 20px;
+    img {
+      width: 90px;
+      margin-bottom: 25px;
+    }
+    h5 {
+      font-weight: 600;
+      font-size: 19px;
+      margin-bottom: 17px;
+    }
   }
 }
 .calender-sidebar {
