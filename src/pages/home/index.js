@@ -1,145 +1,72 @@
 import React, { useState, useEffect } from "react";
 import calenderIcon from "../../assets/images/calneder2.png";
-import googleCalender from "../../assets/images/google-calendar-1.png";
-import gmailIcon from "../../assets/images/gmail.png";
-import checkIcon from "../../assets/images/check.png";
 import calIcon from "../../assets/images/cal-icon.png";
 import { ReactComponent as GoogleIconSvg } from "../../assets/images/google-icon.svg";
+import { useNavigate } from "react-router-dom";
+import { useGoogleLogin } from "@react-oauth/google";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Home = () => {
-  const gapi = window.gapi;
-  const google = window.google;
-  const CLIENT_ID =
-    "168070709261-77jstlj3s4hdq75lb6t5jsdurf0jp2iu.apps.googleusercontent.com";
-  const API_KEY = "AIzaSyB-iV-p2fiF8KTv_hl5mlO0ADr0XZyhRe0";
-  const CALENDER_DISCOVERY_DOC = [
-    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
-  ];
-  const GMAIL_DISCOVERY_DOC = [
-    "https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest",
-  ];
 
-  // const SCOPES = "https://www.googleapis.com/auth/calendar";
-  const CALENDER_SCOPES = "https://www.googleapis.com/auth/calendar";
-  const GMAIL_SCOPES = "https://www.googleapis.com/auth/gmail.readonly";
-  const [service, setService] = useState("");
-  const accessToken = localStorage.getItem("access_token");
-  const expiresIn = localStorage.getItem("expires_in");
+  const navigate = useNavigate();
 
-  let gapiInited = false,
-    gisInited = false,
-    tokenClient;
-
-  useEffect(() => {
-    if (service !== "") {
-      setTimeout(() => {
-        handleAuthClick();
-      }, 0);
-    }
-  }, [service]);
-
-  useEffect(() => {
-    //const expiryTime = new Date().getTime() + expiresIn * 1000;
-    gapiLoaded();
-    gisLoaded();
-  }, [service]);
-
-  function gapiLoaded() {
-    gapi.load("client", initializeGapiClient);
+  const calldashboard = () => {
+    navigate("/dashboard")
   }
 
-  async function initializeGapiClient() {
-    await gapi.client.init({
-      apiKey: API_KEY,
-      discoveryDocs:
-        service === "calender" ? CALENDER_DISCOVERY_DOC : GMAIL_DISCOVERY_DOC,
-    });
-    gapiInited = true;
 
-    if (accessToken && expiresIn) {
-      gapi.client.setToken({
-        access_token: accessToken,
-        expires_in: expiresIn,
-      });
-      // getUpcomingEvents();
-    }
+
+  const [loader, setLoader] = useState(false);
+
+  // const GOOGLE_SCOPE = "openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";
+  const GOOGLE_SCOPE = "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+  const BASE_URL = "http://192.168.1.58:9000"
+  const LOGIN_URL = "http://192.168.1.58:9000/login";
+  const GOOGLE_AUTH_SETTINGS = {
+    flow: "auth-code",
+    redirect_uri: "http://localhost:3000",
+    prompt: "consent",
+    access_type: "offline",
+    scope: GOOGLE_SCOPE,
   }
 
-  function gisLoaded() {
-    tokenClient = google.accounts.oauth2.initTokenClient({
-      client_id: CLIENT_ID,
-      scope: service === "calender" ? CALENDER_SCOPES : GMAIL_SCOPES,
-      callback: "", // defined later
-    });
-
-    gisInited = true;
-  }
-
-  //Enables user interaction after all libraries are loaded.
-
-  function handleAuthClick() {
-    tokenClient.callback = async (resp) => {
-      if (resp.error) {
-        throw resp;
-      }
-      if (service === "calender") {
-        await getUpcomingEvents();
-      }
-      const { access_token, expires_in } = gapi.client.getToken();
-      localStorage.setItem("access_token", access_token);
-      localStorage.setItem("expires_in", expires_in);
-    };
-
-    if (!(accessToken && expiresIn)) {
-      // Prompt the user to select a Google Account and ask for consent to share their data
-      // when establishing a new session.
-      tokenClient.requestAccessToken({ prompt: "consent" });
-    } else {
-      // Skip display of account chooser and consent dialog for an existing session.
-      tokenClient.requestAccessToken({ prompt: "" });
+  const getAccessToken = async (tokenResponse) => {
+    setLoader(true);
+    const result = await axios.post(LOGIN_URL, {
+      tokenResponse
     }
-    setService("");
-  }
-
-  async function getUpcomingEvents() {
-    let response;
-    try {
-      const request = {
-        calendarId: "primary",
-        timeMin: new Date().toISOString(),
-        showDeleted: false,
-        singleEvents: true,
-        maxResults: 10,
-        orderBy: "startTime",
-      };
-      response = await gapi.client.calendar.events.list(request);
-    } catch (err) {
-      console.log(err.message, "error===>> ");
-      return;
-    }
-    const events = response.result.items;
-    console.log(events, "eventseventsevents");
-    if (!events || events.length === 0) {
-      console.log("NO EVENTS FOUND");
-      return;
-    }
-    // Flatten to string to display
-    const output = events.reduce(
-      (str, event) =>
-        `${str}${event.summary} (${
-          event.start.dateTime || event.start.date
-        })\n`,
-      "Events:\n"
     );
-    console.log(output, "List Of Events =====>>>");
-  }
+    setLoader(false);
+    const authHeader = result.headers.get("Authorization");
+    const token = authHeader ? authHeader.split(" ")[1] : null;
+    return token;
+  };
 
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      console.log(tokenResponse, "tokenResponse");
+      try {
+        let returnedData = await getAccessToken({
+          ...tokenResponse,
+          redirectURL: GOOGLE_AUTH_SETTINGS.redirect_uri,
+        });
+        console.log(returnedData, "returnedData");
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    ...GOOGLE_AUTH_SETTINGS,
+
+    onError: (errorResponse) => toast(errorResponse),
+  });
   return (
     <>
       <div className="meeting-schedule">
         <div className="container">
           <div className="row">
             <div className="col-md-9">
+              <button onClick={() => calldashboard()}> Dashboard</button>
               <p className="display">Displaying 0-0 of 0 Events</p>
               <div className="meeting-schedule__card">
                 <div className="meeting-schedule__header">
@@ -163,16 +90,12 @@ const Home = () => {
           <div className="calender-sidebar__main">
             <img src={calenderIcon} className="calender-img" alt="" />
             <div className="calender-sidebar__main--btn">
-              <div className="google" onClick={() => setService("calender")}>
-                {/* <GoogleIconSvg /> */}
-                <img src={gmailIcon} alt="" />
+              <div className="google" onClick={() => googleLogin()}>
+                <GoogleIconSvg />
+                {/* <img src={gmailIcon} alt="" />*/}
                 <span className="google-text">Connect your Gmail</span>
               </div>
-              <div className="google" onClick={() => setService("gmail")}>
-                <img src={googleCalender} alt="" />
-                {/* <GoogleIconSvg /> */}
-                <span className="google-text">Connect your Calendar</span>
-              </div>
+
             </div>
           </div>
         </div>

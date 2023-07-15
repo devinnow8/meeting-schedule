@@ -1,21 +1,21 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
+import React, { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { configureStore } from "./redux/store";
-
+import { ToastContainer } from "react-toastify";
 import RouteComponent from "./routes";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const App = () => {
-  const { store, persistor } = configureStore();
+
+
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <div className="app">
-          <RouteComponent />
-        </div>
-      </PersistGate>
-    </Provider>
+    <div className="app">
+      <GoogleOAuthProvider clientId="910702943231-ea6pjn20rr3jnm2iruht1hm5h026663d.apps.googleusercontent.com">
+        <ToastContainer />
+
+        <RouteComponent />
+      </GoogleOAuthProvider>
+
+    </div>
   );
 };
 

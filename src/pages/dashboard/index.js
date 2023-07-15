@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const STATUS_ARRAY = [
   { id: 1, name: "New", selected: true, events: [] },
@@ -30,7 +31,11 @@ const STATUS_ARRAY = [
 
 const Dashboard = () => {
   const [statusArray, setStatusArray] = useState([...STATUS_ARRAY]);
+  const navigate = useNavigate();
 
+  const callhome = () => {
+    navigate("/home");
+  }
   const handleTabClick = (id) => {
     let array = [...statusArray];
     array = array.map((item) =>
@@ -44,6 +49,7 @@ const Dashboard = () => {
   const TableContent = () => {
     const active_tab = statusArray.find((item) => item.selected);
     console.log("j8sdf7udsbf", active_tab);
+
     return active_tab.events.length !== 0 ? (
       <div className="table-content not-empty">
         {active_tab.events.map((event) => (
@@ -73,10 +79,12 @@ const Dashboard = () => {
     );
   };
 
+
   return (
     <div className="dashboard-container">
       <div className="table-main">
         <div className="header-main">
+          <button onClick={() => callhome()}> Home</button>
           {statusArray.map((item) => (
             <div
               key={item.id}

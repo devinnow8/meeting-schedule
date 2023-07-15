@@ -1,18 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-
 import App from "./App";
 import "./assets/styles/main.scss";
 import reportWebVitals from "./reportWebVitals";
+import { NylasProvider } from '@nylas/nylas-react';
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const SERVER_URI = 'http://192.168.1.58:9000/api/v1/calendar';
 root.render(
-  <GoogleOAuthProvider clientId="168070709261-77jstlj3s4hdq75lb6t5jsdurf0jp2iu.apps.googleusercontent.com">
-    <React.StrictMode>
+  // http://192.168.1.58:9000/login
+  <React.StrictMode>
+    <NylasProvider serverBaseUrl={SERVER_URI}>
       <App />
-    </React.StrictMode>
-  </GoogleOAuthProvider>
+    </NylasProvider>
+  </React.StrictMode>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

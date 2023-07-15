@@ -1,48 +1,34 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
-import { set_user_details } from "../../redux/login/action";
 import { ReactComponent as GoogleIconSvg } from "../../assets/images/google-icon.svg";
 import calenderImg from "../../assets/images/home.png";
+import { toast } from "react-toastify";
+import PropTypes from 'prop-types';
+import { useNylas } from '@nylas/nylas-react';
 
 const Login = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState({});
+  const [email, setEmail] = useState();
+  const nylas = useNylas();
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (user.access_token !== undefined) {
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          dispatch(
-            set_user_details({
-              name: res.data.name,
-              email: res.data.email,
-              id: res.data.id,
-              picture: res.data.picture,
-            })
-          );
-          navigate("/");
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user]);
+  const loginUser = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-  const onLogin = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
-    onError: (error) => console.log("Login Failed:", error),
-  });
+    console.log("nylas", nylas)
+    sessionStorage.setItem('userEmail', email);
+    nylas.authWithRedirect({
+      emailAddress: email,
+      successRedirectUrl: '',
+    });
+
+  };
+
+
 
   return (
     <section className="signup-hero">
@@ -65,14 +51,30 @@ const Login = () => {
                 productivity. Streamline your calendar
               </p>
               <div className="signup-btn">
-                <div className="google" onClick={onLogin}>
+                <div className="google" >
                   {/* <GoogleLogin
                   className="h89sdfsf"
                   onSuccess={responseMessage}
                   onError={errorMessage}
                 /> */}
-                  <GoogleIconSvg />
-                  <span className="google-text">Continue with Google</span>
+
+                  {/*   <GoogleIconSvg />
+
+                  <span className="google-text">Continue with Google</span>*/}
+                  <section className="login">
+                    <form onSubmit={loginUser}>
+                      <input
+                        required
+                        type="email"
+                        placeholder="Email Address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <button type="submit" disabled={isLoading}>
+                        {isLoading ? 'Connecting...' : 'Connect email'}
+                      </button>
+                    </form>
+                  </section>
                 </div>
               </div>
             </div>
@@ -86,5 +88,6 @@ const Login = () => {
     </section>
   );
 };
+
 
 export default Login;

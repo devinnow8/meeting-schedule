@@ -1,16 +1,16 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import { Home, Login, Dashboard } from "../pages";
+import { Home, Login, Dashboard, Initial } from "../pages";
 import Layout from "../shared/layout";
 
 const PrivateRoute = ({ children }) => {
-  const user = useSelector((state) => state.loginReducer.user_details);
-
-  if (user.id === undefined) {
+  console.log("userroute", localStorage.getItem("userId"));
+  const userId = localStorage.getItem("userId");
+  if (userId === null) {
     return <Navigate to="/login" />;
   }
+
   return children;
 };
 
@@ -19,8 +19,11 @@ const RouteComponent = () => {
     <BrowserRouter>
       <Layout>
         <Routes>
+          <Route path="/" element={<Initial />
+          }
+          />
           <Route
-            path="/"
+            path="/home"
             element={
               <PrivateRoute>
                 <Home />
