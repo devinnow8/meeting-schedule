@@ -28,8 +28,8 @@ const Initial = () => {
                     setUserId(user.id);
                     localStorage.setItem('userId', user.id);
                     localStorage.setItem('token', user.token); // Jwt token
-
-                    navigate("/dashboard")
+                    localStorage.setItem('useremail', user.emailAddress);
+                    navigate("/home")
 
                 })
                 .catch((error) => {
@@ -43,7 +43,7 @@ const Initial = () => {
                 navigate("/login");
             } else {
 
-                navigate("/dashboard")
+                navigate("/home")
             }
         }
     }, [])

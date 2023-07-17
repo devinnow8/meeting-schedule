@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { googleLogout } from "@react-oauth/google";
-
 import logo from "../../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
 
@@ -8,21 +6,10 @@ const NavBar = () => {
   const userId = localStorage.getItem("userId")
   const [dropdown, setDropdown] = useState(false);
   const navigate = useNavigate();
-
-  // $("#search-icon").click(function() {
-  //     $(".nav").toggleclassName("search");
-  //     $(".nav").toggleclassName("no-search");
-  //     $(".search-input").toggleclassName("search-active");
-  //   });
-
-  //   $('.menu-toggle').click(function(){
-  //      $(".nav").toggleclassName("mobile-nav");
-  //      $(this).toggleclassName("is-active");
-  //   });
-
   const logOut = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
+    localStorage.removeItem("useremail");
     navigate("/login");
   };
 
@@ -42,25 +29,21 @@ const NavBar = () => {
           {userId !== null && (
             <ul className="nav no-search">
               {/* <li className="nav-item">
-                  <a href="#">Home</a>
-                </li> */}
+                <a href="#">Home</a>
+              </li> */}
               <li
                 className="nav-item"
                 onClick={() => setDropdown((prev) => !prev)}
-              >
-
-              </li>
+              ><span className="user-name">  {localStorage.getItem("useremail").split('@')[0]}</span></li>
               {dropdown && (
                 <div className="user-dropdown">
                   <div className="inner">
                     <div className="user-details">
                       {/*<span className="user-name">{user.name}</span>
-              <span className="user-name">{user.email}</span>*/}
-                    </div>
-                  </div>
-                  <div className="lower">
-                    <div className="logout-btn" onClick={logOut}>
-                      Logout
+            <span className="user-name">{user.email}</span>*/}
+                      <div className="logout-btn" onClick={logOut}>
+                        Logout
+                      </div>
                     </div>
                   </div>
                 </div>

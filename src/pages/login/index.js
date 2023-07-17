@@ -20,7 +20,7 @@ const Login = () => {
     setIsLoading(true);
 
     console.log("nylas", nylas)
-    sessionStorage.setItem('userEmail', email);
+
     nylas.authWithRedirect({
       emailAddress: email,
       successRedirectUrl: '',
@@ -52,15 +52,7 @@ const Login = () => {
               </p>
               <div className="signup-btn">
                 <div className="google" >
-                  {/* <GoogleLogin
-                  className="h89sdfsf"
-                  onSuccess={responseMessage}
-                  onError={errorMessage}
-                /> */}
 
-                  {/*   <GoogleIconSvg />
-
-                  <span className="google-text">Continue with Google</span>*/}
                   <section className="login">
                     <form onSubmit={loginUser}>
                       <input
@@ -70,7 +62,7 @@ const Login = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
-                      <button type="submit" disabled={isLoading}>
+                      <button className="login-btn" type="submit" disabled={isLoading}>
                         {isLoading ? 'Connecting...' : 'Connect email'}
                       </button>
                     </form>
@@ -78,10 +70,10 @@ const Login = () => {
                 </div>
               </div>
             </div>
-            {/* <p>OR</p>
+
             <p className="desc">
-              <a href="">Sign up free with email.</a> No credit card required
-            </p> */}
+              <span className="Star"> *</span>  Gain access to our streamlined email system and simplify your meeting scheduling process effortlessly.
+            </p>
           </div>
         </div>
       </div>

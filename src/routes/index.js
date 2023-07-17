@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import { Home, Login, Dashboard, Initial } from "../pages";
+import { Home, Login, Initial } from "../pages";
 import Layout from "../shared/layout";
 
 const PrivateRoute = ({ children }) => {
@@ -31,14 +31,7 @@ const RouteComponent = () => {
             }
           />
           <Route path="/login" element={<Login />} />
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
+
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Layout>

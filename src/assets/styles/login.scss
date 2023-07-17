@@ -44,7 +44,11 @@
       @media (max-width: 768px) {
         font-size: 16px;
       }
+     
     }
+  }
+  .Star{
+    color:#f66d06 ;
   }
   .signup-btn {
     margin-top: 30px;
@@ -62,6 +66,14 @@
       cursor: pointer;
       .google-text {
         margin-left: 12px;
+      }
+      .login-btn{
+        border: 1px solid #f65a05;
+        border-radius: 4px;
+        padding: 0.25rem 1rem;
+        background-color: transparent;
+        color: #f65a05;
+        margin-top: 1rem;
       }
     }
     .h89sdfsf {

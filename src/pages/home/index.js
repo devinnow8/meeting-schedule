@@ -11,9 +11,6 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const calldashboard = () => {
-    navigate("/dashboard")
-  }
 
 
 
@@ -66,14 +63,14 @@ const Home = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-9">
-              <button onClick={() => calldashboard()}> Dashboard</button>
+
               <p className="display">Displaying 0-0 of 0 Events</p>
               <div className="meeting-schedule__card">
                 <div className="meeting-schedule__header">
                   <ul>
-                    <li className="active">New</li>
-                    <li>Scheduling</li>
-                    <li>Scheduled</li>
+                    <li className="active">Upcoming</li>
+                    <li>Inprogress</li>
+                    <li>Past</li>
                   </ul>
                 </div>
                 <div className="meeting-schedule__content">
