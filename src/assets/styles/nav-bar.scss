@@ -63,18 +63,34 @@
 
 .user-dropdown {
   position: absolute;
-  border: 1px solid #aaa;
   top: 42px;
   right: 0;
   padding: 18px;
   background: #fff;
-  // box-shadow: 2px 2px 2px 2px #0072a3;
+  box-shadow: 0 0 41px 2px #d9d9d9;
+  border-radius: 4px;
   .inner {
     display: flex;
     align-items: center;
     .user-details {
       .user-name {
         display: block;
+      }
+      span {
+        color: #757575;
+        cursor: pointer;
+        &:hover {
+          color: #f65a05;
+        }
+      }
+      .logout-btn{
+        &:hover {
+          color: #f65a05;
+        }
+        margin-top:0.5rem;
+        span{
+          margin-left:0.5rem;
+        }
       }
     }
   }

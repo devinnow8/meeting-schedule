@@ -50,24 +50,24 @@ const Login = () => {
               </p>
               <div className="signup-btn">
                 <div className="google" >
-                    <form onSubmit={loginUser}>
-                      <input
-                        required
-                        type="email"
-                        placeholder="Enter your email address"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                      <button className="login-btn" type="submit" disabled={isLoading}>
-                        {isLoading ? 'Connecting...' : 'Connect'}
-                      </button>
-                    </form>
+                  <form onSubmit={loginUser}>
+                    <input
+                      required
+                      type="email"
+                      placeholder="Enter your email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <button className="login-btn" type="submit" disabled={isLoading}>
+                      {isLoading ? 'Connecting...' : 'Connect'}
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
 
             <p className="desc">
-              <span className="Star"> *</span>  Gain access to our streamlined email system and simplify your meeting scheduling process effortlessly.
+              <span className="Star"> *</span>  Gain access to our streamlined email system and simplify your meeting scheduling process effortlessly
             </p>
           </div>
         </div>

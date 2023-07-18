@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineLogout } from "react-icons/ai";
 
 const NavBar = () => {
   const userId = localStorage.getItem("userId")
@@ -10,10 +11,12 @@ const NavBar = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
     localStorage.removeItem("useremail");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userpicture");
     navigate("/login");
   };
 
-
+  const imageurl = localStorage.getItem("userpicture");
   return (
     <header className="header">
       <div className="container">
@@ -28,21 +31,20 @@ const NavBar = () => {
 
           {userId !== null && (
             <ul className="nav no-search">
-              {/* <li className="nav-item">
-                <a href="#">Home</a>
-              </li> */}
+
               <li
                 className="nav-item"
                 onClick={() => setDropdown((prev) => !prev)}
-              ><span className="user-name">  {localStorage.getItem("useremail").split('@')[0]}</span></li>
+              >
+                <img src={imageurl} className="user-name" />
+                <span className="user-name">  {localStorage.getItem("username")}</span></li>
               {dropdown && (
                 <div className="user-dropdown">
                   <div className="inner">
                     <div className="user-details">
-                      {/*<span className="user-name">{user.name}</span>
-            <span className="user-name">{user.email}</span>*/}
+                      <span className="user-name">{localStorage.getItem("useremail")}</span>
                       <div className="logout-btn" onClick={logOut}>
-                        Logout
+                        <AiOutlineLogout /> <span>Logout</span>
                       </div>
                     </div>
                   </div>
