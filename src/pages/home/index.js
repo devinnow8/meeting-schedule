@@ -63,7 +63,6 @@ const Home = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-9">
-
               <p className="display">Displaying 0-0 of 0 Events</p>
               <div className="meeting-schedule__card">
                 <div className="meeting-schedule__header">

@@ -52,28 +52,54 @@
   }
   .signup-btn {
     margin-top: 30px;
+    width: 100%;
     .google {
       display: flex;
-      margin: auto;
       align-items: center;
       justify-content: center;
-      box-shadow: 0px 3px 14px 2px rgba(0, 0, 0, 0.10);
       border-radius: 8px;
-      padding: 12px 0px;
-      width: 280px;
       font-size: 18px;
       color: #696969;
       cursor: pointer;
       .google-text {
         margin-left: 12px;
       }
+      form {
+        width: 100%;
+        align-items: center;
+        border-radius: 4px;
+        display: flex;
+        flex-wrap: wrap;
+        input {
+          padding: 10px;
+          min-width: 200px;
+          border: 1px solid #f65a05;
+          width: 50%;
+          border-radius: 5px 0 0 5px;
+          @media (max-width:575px) {
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 0px;
+          }
+        }
+      }
       .login-btn{
         border: 1px solid #f65a05;
-        border-radius: 4px;
         padding: 0.25rem 1rem;
-        background-color: transparent;
         color: #f65a05;
-        margin-top: 1rem;
+        background: #f65a05;
+        color: white;
+        font-weight: bold;
+        border-radius: 0 5px 5px 0;
+        padding: 10px 20px;
+        min-width: 150px;
+        @media (max-width:575px) {
+          width: 100%;
+          border-radius: 0px;
+        }
+        &:focus-visible{
+          outline: none;
+        }
       }
     }
     .h89sdfsf {

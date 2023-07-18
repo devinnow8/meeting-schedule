@@ -28,8 +28,6 @@ const Login = () => {
 
   };
 
-
-
   return (
     <section className="signup-hero">
       <div className="container">
@@ -52,21 +50,18 @@ const Login = () => {
               </p>
               <div className="signup-btn">
                 <div className="google" >
-
-                  <section className="login">
                     <form onSubmit={loginUser}>
                       <input
                         required
                         type="email"
-                        placeholder="Email Address"
+                        placeholder="Enter your email address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
                       <button className="login-btn" type="submit" disabled={isLoading}>
-                        {isLoading ? 'Connecting...' : 'Connect email'}
+                        {isLoading ? 'Connecting...' : 'Connect'}
                       </button>
                     </form>
-                  </section>
                 </div>
               </div>
             </div>
