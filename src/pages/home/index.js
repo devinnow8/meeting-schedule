@@ -68,7 +68,8 @@ const Home = () => {
       );
       console.log(response, "scheduleresponse");
       console.log(response.data.entry.meetings, "meeting");
-      setMeeting(response.data.entry.meetings);
+      if (response.status === 200) { setMeeting(response.data.entry.meetings); }
+
       setLoader(false)
       console.log(meeting, "meetingmeeting");
     } catch (error) {
@@ -139,32 +140,30 @@ const Home = () => {
                     :
                     <>
                       {
-                        meeting.length === 0 ?
-                          <div className="no-events">
-                            <img src={calIcon} className="img-fluid" alt="" />
-                            <h5>No {activeTab} Events Yet</h5>
-                            <p>Share event type links to schedule events</p>
-                          </div>
-                          :
+                        meeting?.length ?
                           <table className="events-table">
                             <thead>
                               <tr>
-                                <th>ID</th>
+                                <th>Serial No</th>
                                 <th>Title</th>
-                                <th>Status</th>
+                                <th>Time</th>
+                                <th>Date</th>
+                                <th>Participant</th>
                               </tr>
                             </thead>
                             <tbody>
 
-                              {categorizedEvents[activeTab].map((event) => {
+                              {categorizedEvents[activeTab].map((event, index) => {
                                 console.log(event, 'eventeventevent');
                                 return (
-                                  <tr key={event.id}>
-
+                                  <tr key={index}>
+                                    <td>{index + 1}</td>
                                     <td>{event.title}</td>
-                                    <td>{event.description}</td>
-
-                                    <td>{event.status}</td>
+                                    <td>{new Date(event.startTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + "  " + new Date(event.endTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                                    <td>   {new Date(event.startTime * 1000).toLocaleDateString()}</td>
+                                    <td>{event.participants.map((it) => {
+                                      return (it.email)
+                                    })}</td>
 
                                   </tr>
                                 )
@@ -172,6 +171,13 @@ const Home = () => {
                               )}
                             </tbody>
                           </table>
+                          :
+                          <div className="no-events">
+                            <img src={calIcon} className="img-fluid" alt="" />
+                            <h5>No {activeTab} Events Yet</h5>
+                            <p>Share event type links to schedule events</p>
+                          </div>
+
 
                       }</>
                   }
