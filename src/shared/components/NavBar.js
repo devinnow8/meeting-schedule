@@ -9,11 +9,7 @@ const NavBar = () => {
   const [dropdown, setDropdown] = useState(false);
   const navigate = useNavigate();
   const logOut = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
-    localStorage.removeItem("useremail");
-    localStorage.removeItem("username");
-    localStorage.removeItem("userpicture");
+    localStorage.clear();
     navigate("/login");
   };
 

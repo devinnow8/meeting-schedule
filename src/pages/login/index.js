@@ -53,6 +53,7 @@ const Login = () => {
                   <form onSubmit={loginUser}>
                     <input
                       required
+                      autoComplete="on"
                       type="email"
                       placeholder="Enter your email address"
                       value={email}
