@@ -9,7 +9,7 @@ const Initial = () => {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams()
     const [userId, setUserId] = useState('');
-    const SERVER_URI = 'http://192.168.1.58:9000/api/v1/calendar';
+    const SERVER_URI = 'https://calendar-service-agox.onrender.com/api/v1/calendar';
 
     useEffect(() => {
         console.log("nylasnylas app", nylas)

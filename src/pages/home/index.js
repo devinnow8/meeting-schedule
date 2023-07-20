@@ -11,10 +11,9 @@ const Home = () => {
   const [loader, setLoader] = useState(false);
   const [meeting, setMeeting] = useState([]);
   const [activeTab, setActiveTab] = useState("upcoming");
-  const [auth, setAuth] = useState("false")
   const GOOGLE_SCOPE =
     "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
-  const BASE_URL = "http://192.168.1.58:9000";
+  const BASE_URL = "https://calendar-service-agox.onrender.com";
   const LOGIN_URL = "http://192.168.1.58:9000/login";
   const GOOGLE_AUTH_SETTINGS = {
     flow: "auth-code",
@@ -43,10 +42,9 @@ const Home = () => {
           ...tokenResponse,
           redirectURL: GOOGLE_AUTH_SETTINGS.redirect_uri,
         });
-        if (returnedData.length > 0) {
-          setAuth("true")
-        }
-        console.log(returnedData, auth, "returnedData");
+
+
+        console.log(returnedData, "returnedData");
       } catch (err) {
         console.log(err);
       }
@@ -87,7 +85,7 @@ const Home = () => {
     const inprogressEvents = [];
     const pastEvents = [];
 
-    events.forEach((event) => {
+    events !== undefined && events?.forEach((event) => {
       if (currentTime < event.startTime) {
         upcomingEvents.push(event);
       } else if (currentTime >= event.startTime && currentTime <= event.endTime) {
@@ -103,14 +101,14 @@ const Home = () => {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-  console.log(meeting, "typemeeting", categorizedEvents);
+  console.log("typemeeting", localStorage.getItem("auth"), typeof localStorage.getItem("auth"));
   return (
     <>
       <div className="meeting-schedule">
         <div className="container">
           <div className="row">
             <div className="col-md-9">
-              <p className="display">Displaying 0-0 of 0 Events</p>
+              <p className="display"></p>
               <div className="meeting-schedule__card">
                 <div className="meeting-schedule__header">
                   <ul>
@@ -130,7 +128,7 @@ const Home = () => {
                       className={activeTab === "past" ? "active" : ""}
                       onClick={() => handleTabClick("past")}
                     >
-                      Past
+                      Previous
                     </li>
                   </ul>
                 </div>
@@ -159,7 +157,8 @@ const Home = () => {
                                   <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>{event.title}</td>
-                                    <td>{new Date(event.startTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + "  " + new Date(event.endTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                                    <td>{new Date(event.startTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                                      + " - " + new Date(event.endTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                                     <td>   {new Date(event.startTime * 1000).toLocaleDateString()}</td>
                                     <td>{event.participants.map((it) => {
                                       return (it.email)
@@ -193,7 +192,7 @@ const Home = () => {
 
             <div className="calender-sidebar__main--btn">
               {
-                (auth === "false") && (
+                (localStorage.getItem("userpicture") === "null") && (
                   <div className="google" onClick={() => googleLogin()}>
                     <GoogleIconSvg />
                     <span className="google-text">Connect your Gmail</span>
