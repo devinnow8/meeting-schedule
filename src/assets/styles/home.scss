@@ -5,12 +5,16 @@
     font-weight: 400;
     color: $content-color;
     text-align: right;
-    margin: 40px 0px 14px 0px;
+    padding: 1rem;
+    margin: 0;
   }
-  &__card {
-    border-radius: 14px;
-    background: #fff;
-    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+  &__cardwrapper{
+    width:75%;
+    .meeting-schedule__card {
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+    }
   }
   &__header {
     border-bottom: 1px solid #cacaca;
@@ -48,6 +52,35 @@
         }
       }
       tbody{
+        .participant{
+          .badges{
+            width: fit-content;
+            padding:4px;
+          }
+          .tooltips{
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+            &:hover{
+              .tooltipemail{
+                visibility: visible;
+              }
+            }
+            .tooltipemail{
+              visibility: hidden;
+              width: 120px;
+              background-color: black;
+              color: #fff;
+              text-align: center;
+              border-radius: 6px;
+              padding: 5px 0;
+
+              /* Position the tooltip */
+              position: absolute;
+              z-index: 1;
+            }
+          }
+        }
         tr{
           &:hover{
             background-color: #e2e2e2;
@@ -76,12 +109,12 @@
   height: 100%;
   top: 55px;
   z-index: 9;
+  width:25%;
   &__main {
     background-color: #f8f3ef;
-    width:100%;
-    max-width: 330px;
     padding: 46px 20px 20px 20px;
     height: 100%;
+    text-align: center;
     h2 {
       color: #126fd6;
       font-size: 22px;
@@ -90,7 +123,7 @@
       opacity: 0.6;
     }
     img {
-      width: 100%;
+      max-width: 100%;
       margin: 12px 0px 42px 0px;
     }
     &--btn {
@@ -102,8 +135,9 @@
         border-radius: 10px;
         background: #fff;
         box-shadow: 0px 3px 14px 2px rgba(0, 0, 0, 0.1);
-        padding: 12px 0px;
+        padding: 14px 0px;
         width: 100%;
+        max-width:270px;
         border-radius: 8px;
         font-weight: 400;
         color: $content-color;

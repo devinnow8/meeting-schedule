@@ -21,7 +21,7 @@ const NavBar = () => {
 
   return (
     <header className="header">
-      <div className="container">
+      <div className="container-fluid">
         <nav className="navbar">
           <img src={logo} alt="Company Logo" className="logo" />
 
@@ -35,7 +35,7 @@ const NavBar = () => {
             <ul className="nav no-search">
 
               <li
-                className="nav-item"
+                className="nav-item user-profile"
                 onClick={() => setDropdown((prev) => !prev)}
               >
                 {imageurl !== 'null' ? 
