@@ -7,7 +7,7 @@ import { NylasProvider } from '@nylas/nylas-react';
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const SERVER_URI = 'http://192.168.1.58:9000/api/v1/calendar';
+const SERVER_URI = 'https://calendar-service-agox.onrender.com/api/v1/calendar';
 root.render(
   // http://192.168.1.58:9000/login
   <React.StrictMode>
