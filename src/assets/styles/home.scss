@@ -10,14 +10,27 @@
   }
   &__cardwrapper{
     width:75%;
+    margin-left: auto;
+    .breadCrumb-title {
+      background-color: #EFEFEF;
+      padding: 1rem;
+      margin: 0;
+      color: #555555;
+      font-weight: 600;
+  }
     .meeting-schedule__card {
       border-radius: 14px;
       background: #fff;
       box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+      .content_load{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
     }
   }
   &__header {
-    border-bottom: 1px solid #cacaca;
     ul {
       display: flex;
       align-items: center;
@@ -35,10 +48,7 @@
     }
   }
   &__content {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+    
     height: 400px;
     padding: 20px;
     .events-table{
@@ -47,39 +57,95 @@
       thead{
         th{
           background-color: #f2f2f2;
-          text-align: left;
+          text-align: center;
           padding: 12px;
         }
       }
       tbody{
+        .backdrop-modal{
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100vh;
+          width: 100%;
+          background-color: rgba(0,0,0,0.5);
+          z-index: 9999999;
+          .tooltipemail {
+            position: absolute;
+            background-color: #f4e8de;
+            display: block;
+            width: 100%;
+            max-width: 600px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            .modal-bodys{
+              padding: 1rem;
+              .tooltipsEmail {
+                padding: 0.5rem;
+                font-weight: 500;
+                &:hover{
+                  background-color: #fff;
+                  border-radius: 4px;
+                }
+            }
+            }
+            .modal-headers {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 1rem;
+              background-color: #000;
+              color: #fff;
+              border-radius: 4px 4px 0 0;
+            }
+            border-radius: 4px;
+            .close{
+              cursor:pointer;
+              img{
+                width:15px;
+                margin-bottom: 0;
+                filter: invert(1);
+              }
+            }
+        }
+        }
         .participant{
+          display: flex;
+          justify-content: center;
           .badges{
-            width: fit-content;
-            padding:4px;
+            // width: fit-content;
+            // font-size: 14px;
+            // font-weight: bold;
+            // color: #f65a05;
+            display: flex;
+            align-items: center;
+              .email-title {
+                background-color: #023B72;
+                color: #fff;
+                border-radius: 100%;
+                display: block;
+                height: 25px;
+                width: 25px;
+              }
+            }       
           }
-          .tooltips{
-            position: relative;
-            display: inline-block;
-            border-bottom: 1px dotted black;
+        .tooltips{
+          position: relative;
+          display: inline-block;
+          border-bottom: 1px dotted black;
+          border:none;
+          background-color: transparent;
+          color:#c5c5c5;
+          font-weight: bold;
+          margin-left: 8px; 
             &:hover{
+              color:#f65a05;
               .tooltipemail{
                 visibility: visible;
               }
             }
-            .tooltipemail{
-              visibility: hidden;
-              width: 120px;
-              background-color: black;
-              color: #fff;
-              text-align: center;
-              border-radius: 6px;
-              padding: 5px 0;
-
-              /* Position the tooltip */
-              position: absolute;
-              z-index: 1;
-            }
-          }
+        
         }
         tr{
           &:hover{
@@ -88,6 +154,7 @@
           td{
             padding:10px;
             border-bottom: 1px solid #ddd;
+            text-align: center;
           }
         }
       }
@@ -105,14 +172,13 @@
 }
 .calender-sidebar {
   position: fixed;
-  right: 0;
+  left: 0;
   height: 100%;
   top: 55px;
   z-index: 9;
   width:25%;
   &__main {
-    background-color: #f8f3ef;
-    padding: 46px 20px 20px 20px;
+    background-color: #F2F9FF;
     height: 100%;
     text-align: center;
     h2 {
@@ -122,10 +188,10 @@
     .calender-img {
       opacity: 0.6;
     }
-    img {
-      max-width: 100%;
-      margin: 12px 0px 42px 0px;
-    }
+    // img {
+    //   max-width: 100%;
+    //   margin: 12px 0px 42px 0px;
+    // }
     &--btn {
       .google {
         display: flex;
@@ -155,18 +221,30 @@
       }
     }
     ul {
-      padding-inline-start: initial;
       margin-top: 20px;
+      padding-left: 0;
+      .active{
+        background-color:#023B72;
+        color:#fff;
+      }
       li {
         list-style: none;
         display: flex;
-        align-items: flex-start;
-        line-height: 24px;
-        margin-bottom: 10px;
-        color: #717171;
-        img {
-          width: 16px;
-          margin-right: 8px;
+        align-items: center;
+        color: #023B72;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 1rem;
+        .sidebar-icon {
+          width: 100%;
+          max-width: 40px;
+          line-height: 0;
+          text-align: left;
+      }
+        .sidebar-text {
+          width: 100%;
+          max-width: 150px;
+          text-align: left;
         }
       }
     }

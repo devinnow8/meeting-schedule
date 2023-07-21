@@ -40,8 +40,8 @@ const Login = () => {
           <div className="col-md-7">
             <div className="signup-hero__content">
               <h1 className="title">
-                <span>AI -Powered</span>
-                <br /> Automated Scheduling
+                <span>AI -Powered</span><br/>
+                <span className="title-inner">Automated Scheduling</span>
               </h1>
               <p className="desc">
                 Simplify your workload with AI powered automated meeting

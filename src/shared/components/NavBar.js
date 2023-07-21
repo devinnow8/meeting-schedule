@@ -3,6 +3,7 @@ import logo from "../../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
 import User from "../../assets/images/user.png";
+import DownArrow from "../../assets/images/down-arrow.png";
 
 const NavBar = () => {
   const userId = localStorage.getItem("userId")
@@ -41,12 +42,12 @@ const NavBar = () => {
                 {imageurl !== 'null' ? 
                   <>
                     <img src={imageurl} alt="user" className="user-name" referrerPolicy="no-referrer"/>
-                    <span className="user-name">{localStorage.getItem("username")}</span>
+                    <span className="user-name">{localStorage.getItem("username")} <img src={DownArrow} alt="arrow down"/></span>
                   </>
                   :
                   <>
                     <img src={User} alt="default user" className="user-name" />
-                    <span className="user-name">{localStorage.getItem("useremail")}</span>
+                    <span className="user-name">{localStorage.getItem("useremail")} <img src={DownArrow} alt="arrow down"/></span>
                 </>
                 }
               </li>

@@ -5,12 +5,22 @@ import { ReactComponent as GoogleIconSvg } from "../../assets/images/google-icon
 import { useGoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
 import axios from "axios";
+import CloseIcon from "../../assets/images/close.png";
+import Upcoming from "../../assets/images/icons/upcoming.png";
+import Past from "../../assets/images/icons/past.png";
+import InProgress from "../../assets/images/icons/inprogress.png";
+import UpcomingWhite from "../../assets/images/icons/upcoming-white.png";
+import PastWhite from "../../assets/images/icons/past-white.png";
+import InProgressWhite from "../../assets/images/icons/inprogress-white.png";
+import ArrowRight from "../../assets/images/icons/arrow-right.png";
 
 const Home = () => {
   const [loader, setLoader] = useState(false);
   const [meeting, setMeeting] = useState([]);
   const [activeTab, setActiveTab] = useState("upcoming");
+  const [showModal,setShowModal] = useState({});
 
+  
   const GOOGLE_SCOPE =
     "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly";
   const BASE_URL = "https://calendar-service-agox.onrender.com";
@@ -115,33 +125,62 @@ const Home = () => {
   return (
     <>
       <div className="meeting-schedule">
+      <div className="calender-sidebar">
+          <div className="calender-sidebar__main">
+            {/* <img src={calenderIcon} className="calender-img" alt="" /> */}
+            <ul>
+              <li className={activeTab === "upcoming" ? "active" : ""}
+                    onClick={() => handleTabClick("upcoming")}>
+                <div className="sidebar-icon">
+                  <img src={activeTab === "upcoming"?UpcomingWhite:Upcoming} alt="Upcoming" /> 
+                </div>
+                <span className="sidebar-text">Upcoming</span>
+                <div className="sidebar-arrow-icon">
+                  <img src={ArrowRight} alt="ArrowRight"/>
+                </div>
+              </li>
+              
+              <li className={activeTab === "inprogress" ? "active" : ""}
+                    onClick={() => handleTabClick("inprogress")}>
+                <div className="sidebar-icon">
+                  <img src={activeTab === "inprogress"?InProgressWhite:InProgress} alt="InProgress" />
+                </div>
+                <span className="sidebar-text">In Progress</span>
+                <div className="sidebar-arrow-icon">
+                  <img src={ArrowRight} alt="ArrowRight"/>
+                </div>
+              </li>
+
+              <li className={activeTab === "past" ? "active" : ""}
+                    onClick={() => handleTabClick("past")}>
+                <div className="sidebar-icon">
+                  <img src={activeTab === "past"?PastWhite:Past} alt="Past" />
+                </div>
+                <span className="sidebar-text">Past</span>
+                <div className="sidebar-arrow-icon">
+                  <img src={ArrowRight} alt="ArrowRight"/>
+                </div>
+              </li>
+            </ul>
+            <div className="calender-sidebar__main--btn">
+              {(localStorage.getItem("userpicture") === "null") && (
+                <div className="google" onClick={() => googleLogin()}>
+                  <GoogleIconSvg />
+                  <span className="google-text">Connect your Gmail</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>  
         <div className="meeting-schedule__cardwrapper">
-          <div className="container">
-            <p className="display"></p>
+          <div className="container p-0">
+            <p className="breadCrumb-title">{activeTab}</p>
             <div className="meeting-schedule__card">
               <div className="meeting-schedule__header">
-                <ul>
-                  <li
-                    className={activeTab === "upcoming" ? "active" : ""}
-                    onClick={() => handleTabClick("upcoming")}
-                  >
-                    Upcoming
-                  </li>
-                  <li
-                    className={activeTab === "inprogress" ? "active" : ""}
-                    onClick={() => handleTabClick("inprogress")}
-                  >
-                    Inprogress
-                  </li>
-                  <li
-                    className={activeTab === "past" ? "active" : ""}
-                    onClick={() => handleTabClick("past")}
-                  >
-                    Past
-                  </li>
-                </ul>
+                
               </div>
-              <div className="meeting-schedule__content">
+              {/* <div className="meeting-schedule__content"> */}
+              <div className={loader === true?"meeting-schedule__content content_load":"meeting-schedule__content"}>
                 {loader ? (
                   <p>Loading...</p>
                 ) : (
@@ -152,9 +191,11 @@ const Home = () => {
                           <tr>
                             <th>Sr No</th>
                             <th>Title</th>
-                            <th>Time <br/>IST</th>
+                            <th> Start Time </th>
+                            <th> End Time </th>
                             <th>Date</th>
                             <th>Participant</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -170,9 +211,9 @@ const Home = () => {
                                   ).toLocaleTimeString([], {
                                     hour: "2-digit",
                                     minute: "2-digit",
-                                  }) +
-                                    "  " +
-                                    new Date(
+                                  })  } </td>
+                                  <td>
+                                  { new Date(
                                       event.endTime * 1000
                                     ).toLocaleTimeString([], {
                                       hour: "2-digit",
@@ -185,27 +226,49 @@ const Home = () => {
                                     event.startTime * 1000
                                   ).toLocaleDateString()}
                                 </td>
-                                <td className="participant">
-                                  {
-                                    <>
+                                <td>
+                                  <div className="participant">
                                     {
-                                      event.participants.slice(0,2).map((item) => {
-                                          return <div className="badges rounded-pill text-bg-primary">{item.email}</div>;
-                                    })
+                                      <>
+                                      {
+                                        event.participants.slice(0,1).map((item) => {
+                                            return <div className="badges rounded-pill">
+                                              <span className="email-title">{item.email.slice(0,1).toUpperCase()}</span>
+                                              <span className="ms-1">{item.email}</span>
+                                            </div>
+                                      })
+                                      }
+                                      </>
+                                      
                                     }
-                                    { event.participants.length > 2 && 
-                                    <button className="tooltips">
-                                      +{event.participants.length-2} more
-                                      <span className="tooltipemail">
-                                        {event.participants.slice(2).map((item)=>{
-                                          return(
-                                            <div>{item.email}</div>
-                                          )
-                                        })}
-                                      </span>
-                                    </button>} 
-                                    </>
-                                    
+                                  </div>
+                                </td>
+                                <td>
+                                { event.participants.length > 1 && 
+                                <button className="tooltips" onClick={()=>setShowModal(event)}>
+                                  +{event.participants.length - 1}more
+                                </button>} 
+                                  {
+                                    Object.keys(showModal).length > 0 &&
+                                  <div className="backdrop-modal">
+                                      <div className="tooltipemail">
+                                        <div className="modal-headers">
+                                          <h3 className="mb-0">Other Participants</h3>  
+                                          <span className="close" onClick={()=>setShowModal({})}>
+                                            <img src={CloseIcon} alt="close" />
+                                          </span>
+                                        </div>
+                                        <div className="modal-bodys">
+                                          {Object.keys(showModal).length > 0 && showModal.participants.slice(1).map((item)=>{
+                                            return(
+                                              <div className="tooltipsEmail">
+                                                {item.email}
+                                              </div>
+                                            )
+                                          })}
+                                        </div>
+                                      </div>
+                                  </div>
                                   }
                                 </td>
                               </tr>
@@ -225,21 +288,6 @@ const Home = () => {
                   </>
                 )}
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="calender-sidebar">
-          <div className="calender-sidebar__main">
-            <img src={calenderIcon} className="calender-img" alt="" />
-
-            <div className="calender-sidebar__main--btn">
-              {(localStorage.getItem("userpicture") === "null") && (
-                <div className="google" onClick={() => googleLogin()}>
-                  <GoogleIconSvg />
-                  <span className="google-text">Connect your Gmail</span>
-                </div>
-              )}
             </div>
           </div>
         </div>

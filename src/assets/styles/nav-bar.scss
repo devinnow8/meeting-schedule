@@ -19,9 +19,10 @@
 
 .header {
   padding: 12px 0px;
-  background-color: #F8F3EF;
+  background-color: #fff;
   position: relative;
   z-index: 9999;
+  box-shadow: 0 0 2px 2px #ccc;
   .navbar {
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -40,6 +41,17 @@
       justify-self: end;
       margin-right: 20px;
       position: relative;
+      .user-profile{
+        display: flex;
+        align-items: center;
+        .user-name{
+          margin-right:4px;
+          img{
+            height:15px;
+            width:15px;
+          }
+        }
+      }
       .nav-item {
         a {
           color: #000;
