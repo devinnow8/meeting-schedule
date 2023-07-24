@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
 import User from "../../assets/images/user.png";
 import DownArrow from "../../assets/images/down-arrow.png";
+import { AiOutlineUser } from "react-icons/ai";
+
 const NavBar = () => {
   const userDetails = JSON.parse(localStorage.getItem('userDetail'))
   const imageurl = userDetails?.picture || ''
@@ -57,9 +59,10 @@ const NavBar = () => {
                   <div className="inner">
                     <div className="user-details">
                       {
-                        userName !== "null" ? (
-                          <span className="user-name">{userDetails?.emailAddress || ''}</span>
-                        ) : (
+                        userName !== "null" ?(<>
+                        <span className="user-name"> <AiOutlineUser/> <span className="ms-2">{localStorage.getItem("useremail")}</span></span>                  
+                        </>
+                        ):(
                           <span></span>
                         )
                       }

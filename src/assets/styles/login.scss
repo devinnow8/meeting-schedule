@@ -25,8 +25,11 @@
       .title-inner{
         color: #023B72;
       }
-      @media (min-width: 1280px) and (max-width: 1400px) {
+      @media (min-width: 1200px) and (max-width: 1400px) {
         font-size: 50px;
+      }
+      @media (min-width: 769px) and (max-width:1199px){
+        font-size: 40px;
       }
       @media (max-width: 768px) {
         font-size: 28px;

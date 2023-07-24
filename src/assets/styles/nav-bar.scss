@@ -49,6 +49,8 @@
         align-items: center;
         .user-name{
           margin-right:4px;
+          color:#31608C;
+          font-weight: 500;
           img{
             height:15px;
             width:15px;
@@ -87,24 +89,21 @@
   .inner {
     display: flex;
     align-items: center;
+    color:#31608C;  
     .user-details {
       .user-name {
-        display: block;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
       }
       span {
-        color: #757575;
         cursor: pointer;
-        &:hover {
-          color: #f65a05;
-        }
       }
       .logout-btn{
-        &:hover {
-          color: #f65a05;
-        }
-        // margin-top:0.5rem;
         span{
           margin-left:0.5rem;
+          font-weight: 500;
         }
       }
     }
