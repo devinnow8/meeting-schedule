@@ -4,9 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
 import User from "../../assets/images/user.png";
 import DownArrow from "../../assets/images/down-arrow.png";
-
 const NavBar = () => {
-  const userId = localStorage.getItem("userId")
+  const userDetails = JSON.parse(localStorage.getItem('userDetail'))
+  const imageurl = userDetails?.picture || ''
+  const userName = userDetails?.name || ''
+  const userId = userDetails?.id || ''
+  const userEmail = userDetails?.emailAddress || ''
+
   const [dropdown, setDropdown] = useState(false);
   const navigate = useNavigate();
   const logOut = () => {
@@ -14,11 +18,10 @@ const NavBar = () => {
     navigate("/login");
   };
 
-  const imageurl = localStorage.getItem("userpicture");
-  const userName = localStorage.getItem("username");
-  console.log(userName,"userName")
 
-  console.log(typeof imageurl,"imageurl")
+  console.log(userName, "userName")
+
+  console.log(typeof imageurl, "imageurl")
 
   return (
     <header className="header">
@@ -27,28 +30,26 @@ const NavBar = () => {
           <img src={logo} alt="Company Logo" className="logo" />
 
           <div className="menu-toggle" id="mobile-menu">
-            {/* <span className="bar"></span>
-            <span className="bar"></span>
-            <span className="bar"></span> */}
+
           </div>
 
-          {userId !== null && (
+          {userId !== 'null' && (
             <ul className="nav no-search">
 
               <li
                 className="nav-item user-profile"
                 onClick={() => setDropdown((prev) => !prev)}
               >
-                {imageurl !== 'null' ? 
+                {imageurl !== '' ?
                   <>
-                    <img src={imageurl} alt="user" className="user-name" referrerPolicy="no-referrer"/>
-                    <span className="user-name">{localStorage.getItem("username")} <img src={DownArrow} alt="arrow down"/></span>
+                    <img src={imageurl} alt="user" className="user-name" referrerPolicy="no-referrer" />
+                    <span className="user-name">{userName} <img src={DownArrow} alt="arrow down" /></span>
                   </>
                   :
                   <>
                     <img src={User} alt="default user" className="user-name" />
-                    <span className="user-name">{localStorage.getItem("useremail")} <img src={DownArrow} alt="arrow down"/></span>
-                </>
+                    <span className="user-name">{userEmail} <img src={DownArrow} alt="arrow down" /></span>
+                  </>
                 }
               </li>
               {dropdown && (
@@ -56,9 +57,9 @@ const NavBar = () => {
                   <div className="inner">
                     <div className="user-details">
                       {
-                        userName !== "null" ?(
-                          <span className="user-name">{localStorage.getItem("useremail")}</span>
-                        ):(
+                        userName !== "null" ? (
+                          <span className="user-name">{userDetails?.emailAddress || ''}</span>
+                        ) : (
                           <span></span>
                         )
                       }

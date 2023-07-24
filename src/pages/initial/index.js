@@ -30,11 +30,12 @@ const Initial = () => {
                     const user = JSON.parse(response);
                     console.log(user, 'useruseruser');
                     setUserId(user.id);
-                    localStorage.setItem('userId', user.id);
-                    localStorage.setItem('token', user.token); // Jwt token
-                    localStorage.setItem('useremail', user.emailAddress);
-                    localStorage.setItem('username', user.name);
-                    localStorage.setItem('userpicture', user.picture);
+                    localStorage.setItem('userDetail', JSON.stringify(user))
+                    // localStorage.setItem('userId', user.id);
+                    // localStorage.setItem('token', user.token); // Jwt token
+                    // localStorage.setItem('useremail', user.emailAddress);
+                    // localStorage.setItem('username', user.name);
+                    // localStorage.setItem('userpicture', user.picture);
                     navigate("/home")
 
                 })
@@ -43,7 +44,7 @@ const Initial = () => {
                 });
         } else {
             console.log("nylas app no code")
-            const userId = localStorage.getItem("userId");
+            const userId = JSON.parse(localStorage.getItem('userDetail'))?.id || ''
             console.log("userId layout: ", userId)
             if (!userId) {
                 navigate("/login");

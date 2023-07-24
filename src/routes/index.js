@@ -5,8 +5,7 @@ import { Home, Login, Initial } from "../pages";
 import Layout from "../shared/layout";
 
 const PrivateRoute = ({ children }) => {
-  console.log("userroute", localStorage.getItem("userId"));
-  const userId = localStorage.getItem("userId");
+  const userId = JSON.parse(localStorage.getItem('userDetail'))?.id || ''
   if (userId === null) {
     return <Navigate to="/login" />;
   }

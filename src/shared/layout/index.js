@@ -4,19 +4,19 @@ import NavBar from "../components/NavBar";
 
 const Layout = (props) => {
   const navigate = useNavigate();
+  const userId = JSON.parse(localStorage.getItem('userDetail'))?.id || ''
 
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
     console.log("userId layout: ", userId)
-    if (!userId) {
+    if (userId === '') {
       navigate("/login");
     }
   }, []);
 
   return (
     <div className="main-layout">
-      <NavBar />
+      {userId !== '' && <NavBar />}
       <div className="inner-layout">{props.children}</div>
     </div>
   );
