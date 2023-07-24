@@ -9,19 +9,22 @@
     margin: 0;
   }
   &__cardwrapper{
-    width:75%;
-    margin-left: auto;
+    max-width:100%;
+    margin-left: 300px;
+    overflow: auto;
     .breadCrumb-title {
       background-color: #EFEFEF;
       padding: 1rem;
       margin: 0;
       color: #555555;
       font-weight: 600;
+      text-transform: capitalize;
+      font-size: 20px;
   }
     .meeting-schedule__card {
       border-radius: 14px;
       background: #fff;
-      box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+      margin-top:74px;
       .content_load{
         display: flex;
         justify-content: center;
@@ -48,9 +51,8 @@
     }
   }
   &__content {
-    
-    height: 400px;
     padding: 20px;
+    height: calc(100vh - 134px);
     .events-table{
       width: 100%;
       border-collapse: collapse;
@@ -62,64 +64,16 @@
         }
       }
       tbody{
-        .backdrop-modal{
-          position: fixed;
-          top: 0;
-          left: 0;
-          height: 100vh;
-          width: 100%;
-          background-color: rgba(0,0,0,0.5);
-          z-index: 9999999;
-          .tooltipemail {
-            position: absolute;
-            background-color: #f4e8de;
-            display: block;
-            width: 100%;
-            max-width: 600px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            .modal-bodys{
-              padding: 1rem;
-              .tooltipsEmail {
-                padding: 0.5rem;
-                font-weight: 500;
-                &:hover{
-                  background-color: #fff;
-                  border-radius: 4px;
-                }
-            }
-            }
-            .modal-headers {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              padding: 1rem;
-              background-color: #000;
-              color: #fff;
-              border-radius: 4px 4px 0 0;
-            }
-            border-radius: 4px;
-            .close{
-              cursor:pointer;
-              img{
-                width:15px;
-                margin-bottom: 0;
-                filter: invert(1);
-              }
-            }
-        }
-        }
+      
         .participant{
           display: flex;
           justify-content: center;
           .badges{
-            // width: fit-content;
-            // font-size: 14px;
-            // font-weight: bold;
-            // color: #f65a05;
             display: flex;
             align-items: center;
+            background-color: #E5F2FF;
+            padding: 4px 16px;
+            font-weight: 500;
               .email-title {
                 background-color: #023B72;
                 color: #fff;
@@ -136,25 +90,63 @@
           border-bottom: 1px dotted black;
           border:none;
           background-color: transparent;
-          color:#c5c5c5;
+          color:#023B72;
           font-weight: bold;
-          margin-left: 8px; 
-            &:hover{
-              color:#f65a05;
-              .tooltipemail{
-                visibility: visible;
+          margin-left: 8px;  
+          height: 0;
+          &:hover .tooltipsEmail{
+            visibility: visible;
+          }
+          .tooltipsEmail{
+            visibility: hidden;
+            width:300px;
+            background-color: #fff;
+            color: #103b72;
+            text-align: left;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: relative;
+            z-index: 1;
+            top: 10%;
+            right: 30%;
+            margin-left: -60px;
+            filter: drop-shadow(2px 4px 6px #cccc);
+            &::after{
+              content: "";
+              position: absolute;
+              bottom: 100%;
+              right: 20px;
+              margin-left: -5px;
+              border-width: 10px;
+              border-style: solid;
+              border-color: transparent transparent white transparent;
+            }
+            .moreemail-title{
+              padding: 0.6rem 0.6rem 0.6rem 3rem;
+              border-bottom:1px solid #CDCDCD;
+              h4{
+                margin:0;
               }
             }
-        
+            .mail{
+              padding: 0.5rem 0.5rem 0.5rem 3rem;
+              border-bottom:1px solid #CDCDCD;
+              &:last-child{
+                border-bottom:0px;
+              }
+            }
+          }     
         }
         tr{
           &:hover{
-            background-color: #e2e2e2;
+            background-color: #dfedff;
           }
           td{
             padding:10px;
             border-bottom: 1px solid #ddd;
             text-align: center;
+            color: #023B72;
+            font-weight: 500;
           }
         }
       }
@@ -173,11 +165,12 @@
 .calender-sidebar {
   position: fixed;
   left: 0;
+  top:74px;
   height: 100%;
-  top: 55px;
   z-index: 9;
-  width:25%;
-  &__main {
+  width: 100%;
+  max-width: 300px;
+    &__main {
     background-color: #F2F9FF;
     height: 100%;
     text-align: center;
@@ -216,7 +209,7 @@
       }
     }
     ul {
-      margin-top: 20px;
+      // margin-top: 20px;
       padding-left: 0;
       .active{
         background-color:#023B72;
@@ -230,6 +223,7 @@
         font-weight: bold;
         font-size: 18px;
         padding: 1rem;
+        justify-content: center;
         .sidebar-icon {
           width: 100%;
           max-width: 40px;

@@ -15,6 +15,8 @@ import InProgressWhite from "../../assets/images/icons/inprogress-white.png";
 import ArrowRight from "../../assets/images/icons/arrow-right.png";
 import modalImg from "../../assets/images/modal-img.png";
 import 'animate.css';
+import ArrowRightWhite from "../../assets/images/icons/arrow-right-white.png";
+
 
 const Home = () => {
   const [loader, setLoader] = useState(false);
@@ -162,7 +164,7 @@ const Home = () => {
                 </div>
                 <span className="sidebar-text">Upcoming</span>
                 <div className="sidebar-arrow-icon">
-                  <img src={ArrowRight} alt="ArrowRight" />
+                  <img src={activeTab === "upcoming" ? ArrowRightWhite : ArrowRight} alt="ArrowRight" />
                 </div>
               </li>
 
@@ -173,7 +175,7 @@ const Home = () => {
                 </div>
                 <span className="sidebar-text">In Progress</span>
                 <div className="sidebar-arrow-icon">
-                  <img src={ArrowRight} alt="ArrowRight" />
+                  <img src={activeTab === "inprogress" ? ArrowRightWhite : ArrowRight} alt="ArrowRight" />
                 </div>
               </li>
 
@@ -184,128 +186,144 @@ const Home = () => {
                 </div>
                 <span className="sidebar-text">Past</span>
                 <div className="sidebar-arrow-icon">
-                  <img src={ArrowRight} alt="ArrowRight" />
+                  <img src={activeTab === "past" ? ArrowRightWhite : ArrowRight} alt="ArrowRight" />
                 </div>
               </li>
             </ul>
           </div>
         </div>
         <div className="meeting-schedule__cardwrapper">
-          <div className="container p-0">
+          <div className="meeting-schedule__card">
+            <div className="meeting-schedule__header">
+
+            </div>
+            {/* <div className="meeting-schedule__content"> */}
             <p className="breadCrumb-title">{activeTab}</p>
-            <div className="meeting-schedule__card">
-              <div className="meeting-schedule__header">
-
-              </div>
-              {/* <div className="meeting-schedule__content"> */}
-              <div className={loader === true ? "meeting-schedule__content content_load" : "meeting-schedule__content"}>
-                {loader ? (
-                  <p>Loading...</p>
-                ) : (
-                  <>
-                    {meeting?.length ? (
-                      <table className="events-table">
-                        <thead>
-                          <tr>
-                            <th>Sr No</th>
-                            <th>Title</th>
-                            <th> Start Time </th>
-                            <th> End Time </th>
-                            <th>Date</th>
-                            <th>Participant</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {categorizedEvents[activeTab].map((event, index) => {
-                            console.log(event, "eventeventevent");
-                            return (
-                              <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{event.title}</td>
-                                <td>
-                                  {new Date(
-                                    event.startTime * 1000
-                                  ).toLocaleTimeString([], {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                  })} </td>
-                                <td>
-                                  {new Date(
-                                    event.endTime * 1000
-                                  ).toLocaleTimeString([], {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                  })}
-                                </td>
-                                <td>
-                                  {" "}
-                                  {new Date(
-                                    event.startTime * 1000
-                                  ).toLocaleDateString()}
-                                </td>
-                                <td>
-                                  <div className="participant">
-                                    {
-                                      <>
-                                        {
-                                          event.participants.slice(0, 1).map((item) => {
-                                            return <div className="badges rounded-pill">
-                                              <span className="email-title">{item.email.slice(0, 1).toUpperCase()}</span>
-                                              <span className="ms-1">{item.email}</span>
-                                            </div>
-                                          })
-                                        }
-                                      </>
-
-                                    }
-                                  </div>
-                                </td>
-                                <td>
-                                  {event.participants.length > 1 &&
-                                    <button className="tooltips" onClick={() => setShowModal(event)}>
-                                      +{event.participants.length - 1}more
-                                    </button>}
+            <div className={loader === true ? "meeting-schedule__content content_load" : "meeting-schedule__content"}>
+              {loader ? (
+                <p>Loading...</p>
+              ) : (
+                <>
+                  {meeting?.length ? (
+                    <table className="events-table">
+                      <thead>
+                        <tr>
+                          <th>S. No</th>
+                          <th>Title</th>
+                          <th> Start Time </th>
+                          <th> End Time </th>
+                          <th>Date</th>
+                          <th>Participant</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {categorizedEvents[activeTab].map((event, index) => {
+                          console.log(event, "eventeventevent");
+                          return (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>{event.title}</td>
+                              <td>
+                                {new Date(
+                                  event.startTime * 1000
+                                ).toLocaleTimeString([], {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })} </td>
+                              <td>
+                                {new Date(
+                                  event.endTime * 1000
+                                ).toLocaleTimeString([], {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </td>
+                              <td>
+                                {" "}
+                                {new Date(
+                                  event.startTime * 1000
+                                ).toLocaleDateString()}
+                              </td>
+                              <td>
+                                <div className="participant">
                                   {
-                                    Object.keys(showModal).length > 0 &&
-                                    <div className="backdrop-modal">
-                                      <div className="tooltipemail">
-                                        <div className="modal-headers">
-                                          <h3 className="mb-0">Other Participants</h3>
-                                          <span className="close" onClick={() => setShowModal({})}>
-                                            <img src={CloseIcon} alt="close" />
-                                          </span>
-                                        </div>
-                                        <div className="modal-bodys">
-                                          {Object.keys(showModal).length > 0 && showModal.participants.slice(1).map((item) => {
-                                            return (
-                                              <div className="tooltipsEmail">
-                                                {item.email}
+                                    <>
+                                      {
+                                        event.participants.slice(0, 1).map((item) => {
+                                          return <div className="badges rounded-pill">
+                                            <span className="email-title">{item.email.slice(0, 1).toUpperCase()}</span>
+                                            <span className="ms-1">{item.email}</span>
+                                          </div>
+                                        })
+                                      }
+
+                                      {event.participants.length > 1 &&
+                                        <button className="tooltips">
+                                          +{event.participants.length - 1}more
+                                          {
+                                            <div className="tooltipsEmail">
+                                              <div className="moreemail-title">
+                                                <h4>Emails</h4>
                                               </div>
-                                            )
-                                          })}
-                                        </div>
+                                              {event?.participants?.slice(1).map((item) => {
+                                                return (
+                                                  <div className="mail">
+                                                    {item.email}
+                                                  </div>
+                                                )
+                                              })}
+                                            </div>
+                                          }
+                                        </button>}
+                                    </>
+
+                                  }
+                                </div>
+                              </td>
+                              <td>
+                                {event.participants.length > 1 &&
+                                  <button className="tooltips" onClick={() => setShowModal(event)}>
+                                    +{event.participants.length - 1}more
+                                  </button>}
+                                {
+                                  Object.keys(showModal).length > 0 &&
+                                  <div className="backdrop-modal">
+                                    <div className="tooltipemail">
+                                      <div className="modal-headers">
+                                        <h3 className="mb-0">Other Participants</h3>
+                                        <span className="close" onClick={() => setShowModal({})}>
+                                          <img src={CloseIcon} alt="close" />
+                                        </span>
+                                      </div>
+                                      <div className="modal-bodys">
+                                        {Object.keys(showModal).length > 0 && showModal.participants.slice(1).map((item) => {
+                                          return (
+                                            <div className="tooltipsEmail">
+                                              {item.email}
+                                            </div>
+                                          )
+                                        })}
                                       </div>
                                     </div>
-                                  }
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    ) : (
-                      <>
-                        <div className="no-events">
-                          <img src={calIcon} className="img-fluid" alt="" />
-                          <h5>No {activeTab} Events Yet</h5>
-                          <p>Share event type links to schedule events</p>
-                        </div>
-                      </>
-                    )}
-                  </>
-                )}
-              </div>
+                                  </div>
+                                }
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <>
+                      <div className="no-events">
+                        <img src={calIcon} className="img-fluid" alt="" />
+                        <h5>No {activeTab} Events Yet</h5>
+                        <p>Share event type links to schedule events</p>
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>

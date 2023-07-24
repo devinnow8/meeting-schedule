@@ -23,6 +23,9 @@
   position: relative;
   z-index: 9999;
   box-shadow: 0 0 2px 2px #ccc;
+  position: fixed;
+  top:0;
+  width: 100%;
   .navbar {
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -99,7 +102,7 @@
         &:hover {
           color: #f65a05;
         }
-        margin-top:0.5rem;
+        // margin-top:0.5rem;
         span{
           margin-left:0.5rem;
         }
