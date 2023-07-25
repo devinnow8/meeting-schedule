@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import calenderIcon from "../../assets/images/calneder2.png";
 import calIcon from "../../assets/images/cal-icon.png";
 import { ReactComponent as GoogleIconSvg } from "../../assets/images/google-icon.svg";
 import { useGoogleLogin } from "@react-oauth/google";
-import { toast } from "react-toastify";
 import axios from "axios";
-import CloseIcon from "../../assets/images/close.png";
 import Upcoming from "../../assets/images/icons/upcoming.png";
 import Past from "../../assets/images/icons/past.png";
 import InProgress from "../../assets/images/icons/inprogress.png";
@@ -16,15 +13,16 @@ import ArrowRight from "../../assets/images/icons/arrow-right.png";
 import modalImg from "../../assets/images/modal-img.png";
 import 'animate.css';
 import ArrowRightWhite from "../../assets/images/icons/arrow-right-white.png";
-
+import { showToast } from "../toast"
 
 const Home = () => {
   const [loader, setLoader] = useState(false);
   const [meeting, setMeeting] = useState([]);
   const [activeTab, setActiveTab] = useState("upcoming");
-  const [showModal, setShowModal] = useState({});
+  const [showModal, setShowModal] = useState(false);
   const [showGmailModal, setShowGmailModal] = useState(false);
   const [returnedData, setReturnedData] = useState({})
+
 
   const GOOGLE_SCOPE =
     "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly";
@@ -58,9 +56,16 @@ const Home = () => {
           ...tokenResponse,
           redirectURL: GOOGLE_AUTH_SETTINGS.redirect_uri,
         });
+        if (returnedData) {
+          console.log("weyfudsf")
+        }
+        console.log(!!returnedData, typeof returnedData, "qw8rysgfdfdf")
         console.log(returnedData, "returnedData")
         localStorage.setItem("returnedData", JSON.stringify(returnedData));
-        if (returnedData) { toast.success("  Connected successfully"); }
+        if (returnedData) {
+          showToast.success("  Connected successfully");
+          setShowModal(true)
+        }
         setReturnedData(returnedData)
       } catch (err) {
         console.log(err);
@@ -68,7 +73,7 @@ const Home = () => {
     },
     ...GOOGLE_AUTH_SETTINGS,
 
-    onError: (errorResponse) => toast(errorResponse),
+    onError: (errorResponse) => showToast(errorResponse),
   });
 
   const fetchEvents = async () => {
@@ -107,15 +112,18 @@ const Home = () => {
     setUserEmailButton()
   }, [returnedData])
 
-
+  useEffect(() => {
+    setUserEmailButton()
+  }, [showModal])
+  console.log("qyruwegfdjsfd", returnedData)
   const categorizeEvents = (events) => {
     const currentTime = Math.floor(Date.now() / 1000);
     const upcomingEvents = [];
     const inprogressEvents = [];
     const pastEvents = [];
-
     events !== undefined &&
       events?.forEach((event) => {
+        console.log('currentTime', currentTime, 'event.startTime', event.startTime)
         if (currentTime < event.startTime) {
           upcomingEvents.push(event);
         } else if (
@@ -150,6 +158,26 @@ const Home = () => {
       setShowGmailModal(false);
     }
   }
+
+  // toast('message', {
+  //   toastId: 'message',
+  //   type: "success",
+  //   position: "top-right",
+  //   autoClose: 1500,
+  //   hideProgressBar: false,
+  //   closeOnClick: true,
+  //   pauseOnHover: true,
+  //   draggable: false,
+  //   progress: undefined,
+  //   style: {
+  //     fontFamily: "inherit",
+  //     fontSize: "15px",
+  //     fontWeight: 500,
+  //     marginBottom: "7px",
+  //     display: "inlineBlock",
+  //     color: "#198754",
+  //   },
+  // });
   return (
     <>
       <div className="meeting-schedule">
@@ -193,61 +221,61 @@ const Home = () => {
           </div>
         </div>
         <div className="meeting-schedule__cardwrapper">
-            <div className="meeting-schedule__card">
-              <div className="meeting-schedule__header">
-                
-              </div>
-              {/* <div className="meeting-schedule__content"> */}
-              <p className="breadCrumb-title">{activeTab}</p>
-              <div className={loader === true?"meeting-schedule__content content_load":"meeting-schedule__content"}>
-                {loader ? (
-                  <p>Loading...</p>
-                ) : (
-                  <>
-                    {meeting?.length ? (
-                      <table className="events-table">
-                        <thead>
-                          <tr>
-                            <th>S. No</th>
-                            <th>Title</th>
-                            <th>Start Time (IST)</th>
-                            <th>End Time (IST)</th>
-                            <th>Date</th>
-                            <th>Participants</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {categorizedEvents[activeTab].map((event, index) => {
-                            console.log(event, "eventeventevent");
-                            return (
-                              <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{event.title}</td>
-                                <td>
-                                  {new Date(
-                                    event.startTime * 1000
-                                  ).toLocaleTimeString([], {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                  })  } </td>
-                                  <td>
-                                  { new Date(
-                                      event.endTime * 1000
-                                    ).toLocaleTimeString([], {
-                                      hour: "2-digit",
-                                      minute: "2-digit",
-                                    })}
-                                </td>
-                                <td>
-                                  {" "}
-                                  {new Date(
-                                    event.startTime * 1000
-                                  ).toLocaleDateString()}
-                                </td>
-                                <td>
-                                  <div className="participant">
-                                    {
-                                      <>
+          <div className="meeting-schedule__card">
+            <div className="meeting-schedule__header">
+
+            </div>
+            {/* <div className="meeting-schedule__content"> */}
+            <p className="breadCrumb-title">{activeTab}</p>
+            <div className={loader === true ? "meeting-schedule__content content_load" : "meeting-schedule__content"}>
+              {loader ? (
+                <p>Loading...</p>
+              ) : (
+                <>
+                  {meeting?.length ? (
+                    <table className="events-table">
+                      <thead>
+                        <tr>
+                          <th>S. No</th>
+                          <th>Title</th>
+                          <th>Start Time (IST)</th>
+                          <th>End Time (IST)</th>
+                          <th>Date</th>
+                          <th>Participants</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {categorizedEvents[activeTab].map((event, index) => {
+                          console.log(event, "eventeventevent");
+                          return (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>{event.title}</td>
+                              <td>
+                                {new Date(
+                                  event.startTime * 1000
+                                ).toLocaleTimeString([], {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })} </td>
+                              <td>
+                                {new Date(
+                                  event.endTime * 1000
+                                ).toLocaleTimeString([], {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </td>
+                              <td>
+                                {" "}
+                                {new Date(
+                                  event.startTime * 1000
+                                ).toLocaleDateString()}
+                              </td>
+                              <td>
+                                <div className="participant">
+                                  {
+                                    <>
                                       {
                                         event.participants.slice(0, 1).map((item) => {
                                           return <div className="badges rounded-pill">
@@ -271,8 +299,8 @@ const Home = () => {
                                                 return (
                                                   <div className="mail">
                                                     <span className="email-title">
-                                                      {item.email.slice(0,1).toUpperCase()}
-                                                    </span>  
+                                                      {item.email.slice(0, 1).toUpperCase()}
+                                                    </span>
                                                     <span className="email-text">{item.email}</span>
                                                   </div>
                                                 )
@@ -314,7 +342,7 @@ const Home = () => {
                     <img src={modalImg} alt="modalImg" />
                   </div>
                   <div className="modal-body">
-                    <h5 className="modal-title">Please confirm details</h5>
+                    <h5 className="modal-title">Give access to read and send Email</h5>
                     <button className="google" onClick={() => googleLogin()}>
                       <GoogleIconSvg />
                       <span className="google-text">Connect your Gmail</span>

@@ -23,7 +23,8 @@ const NavBar = () => {
 
   console.log(userName, "userName")
 
-  console.log(typeof imageurl, "imageurl")
+  console.log(JSON.parse(localStorage.getItem('userDetail')), "imageurl")
+  console.log(userEmail, "hducfhduhfudhufhu");
 
   return (
     <header className="header">
@@ -59,10 +60,10 @@ const NavBar = () => {
                   <div className="inner">
                     <div className="user-details">
                       {
-                        userName !== "null" ?(<>
-                        <span className="user-name"> <AiOutlineUser/> <span className="ms-2">{localStorage.getItem("useremail")}</span></span>                  
+                        userName !== "null" ? (<>
+                          <span className="user-name"> <AiOutlineUser /> <span className="ms-2">{userEmail}</span></span>
                         </>
-                        ):(
+                        ) : (
                           <span></span>
                         )
                       }

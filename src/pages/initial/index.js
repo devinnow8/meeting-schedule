@@ -23,19 +23,14 @@ const Initial = () => {
             nylas
                 .exchangeCodeFromUrlForToken()
                 .then((response) => {
-                    // const headers = response.headers;
-                    // console.log(headers, "headers");
+
                     console.log(response, 'responseresponse');
 
                     const user = JSON.parse(response);
                     console.log(user, 'useruseruser');
                     setUserId(user.id);
                     localStorage.setItem('userDetail', JSON.stringify(user))
-                    // localStorage.setItem('userId', user.id);
-                    // localStorage.setItem('token', user.token); // Jwt token
-                    // localStorage.setItem('useremail', user.emailAddress);
-                    // localStorage.setItem('username', user.name);
-                    // localStorage.setItem('userpicture', user.picture);
+
                     navigate("/home")
 
                 })

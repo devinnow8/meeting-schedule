@@ -54,6 +54,14 @@
     padding: 20px;
     height: calc(100vh - 134px);
     overflow: auto;
+    .no-events {
+      text-align: center;
+      height: calc(100vh - 175px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+  }
     .events-table{
       width: 100%;
       border-collapse: collapse;

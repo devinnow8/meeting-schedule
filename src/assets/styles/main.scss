@@ -38,7 +38,12 @@ h2 {
   line-height: 1.4;
   margin-bottom: 10px;
 }
-
+.Toastify{
+  .Toastify__toast-container {
+    z-index: 99999;
+  }
+}
 @import "./login.scss";
 @import "./home.scss";
 @import "./nav-bar.scss";
+@import  'react-toastify/dist/ReactToastify.css';
