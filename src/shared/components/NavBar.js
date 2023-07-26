@@ -1,31 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import logo from "../../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
 import User from "../../assets/images/user.png";
 import DownArrow from "../../assets/images/down-arrow.png";
 import { AiOutlineUser } from "react-icons/ai";
-
+import UserContext from "../../hooks/UserContext";
 const NavBar = () => {
-  const userDetails = JSON.parse(localStorage.getItem('userDetail'))
-  const imageurl = userDetails?.picture || ''
-  const userName = userDetails?.name || ''
-  const userId = userDetails?.id || ''
-  const userEmail = userDetails?.emailAddress || ''
-
+  const { user, setUser } = useContext(UserContext);
   const [dropdown, setDropdown] = useState(false);
-
   const navigate = useNavigate();
   const logOut = () => {
     localStorage.clear();
+    setUser(null)
     navigate("/login");
   };
-
-
-  console.log(userName, "userName")
-
-  console.log(JSON.parse(localStorage.getItem('userDetail')), "imageurl")
-  console.log(userEmail, "hducfhduhfudhufhu");
 
   return (
     <header className="header">
@@ -37,21 +26,21 @@ const NavBar = () => {
 
           </div>
 
-          {userId !== 'null' && (
+          {user?._id !== 'null' && (
             <ul className="nav no-search" >
               <li
                 className="nav-item user-profile"
                 onClick={() => setDropdown((prev) => !prev)}
               >
-                {imageurl !== '' ?
+                {user?.picture !== '' ?
                   <>
-                    <img src={imageurl} alt="user" className="user-name" referrerPolicy="no-referrer" />
-                    <span className="user-name">{userName} <img src={DownArrow} alt="arrow down" /></span>
+                    <img src={user?.picture} alt="user" className="user-name" referrerPolicy="no-referrer" />
+                    <span className="user-name">{user?.name} <img src={DownArrow} alt="arrow down" /></span>
                   </>
                   :
                   <>
                     <img src={User} alt="default user" className="user-name" />
-                    <span className="user-name">{userEmail} <img src={DownArrow} alt="arrow down" /></span>
+                    <span className="user-name">{user?.email} <img src={DownArrow} alt="arrow down" /></span>
                   </>
                 }
               </li>
@@ -60,18 +49,18 @@ const NavBar = () => {
                   <div className="inner">
                     <div className="user-details">
                       {
-                        userName !== "null" ?(<>
-                        <span className="user-name"> <AiOutlineUser/> <span className="ms-2">{userEmail}</span></span>                  
+                        user?.name !== "null" ? (<>
+                          <span className="user-name"> <AiOutlineUser /> <span className="ms-2">{user?.email}</span></span>
                         </>
-                        ):(
-                          <span></span> 
+                        ) : (
+                          <span></span>
                         )
                       }
                       <div className="logout-btn" >
-                          <span onClick={logOut} className="logout-btn__inner">
-                            <AiOutlineLogout /> 
-                            <span className="logout-text">Logout</span>
-                          </span>
+                        <span onClick={logOut} className="logout-btn__inner">
+                          <AiOutlineLogout />
+                          <span className="logout-text">Logout</span>
+                        </span>
                       </div>
                     </div>
                   </div>

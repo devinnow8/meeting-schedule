@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import calIcon from "../../assets/images/cal-icon.png";
 import { ReactComponent as GoogleIconSvg } from "../../assets/images/google-icon.svg";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -13,15 +13,17 @@ import ArrowRight from "../../assets/images/icons/arrow-right.png";
 import modalImg from "../../assets/images/modal-img.png";
 import 'animate.css';
 import ArrowRightWhite from "../../assets/images/icons/arrow-right-white.png";
-import { showToast } from "../toast"
+import { showToast } from "../toast";
+import UserContext from "../../hooks/UserContext";
 
 const Home = () => {
+  const { user } = useContext(UserContext);
   const [loader, setLoader] = useState(false);
   const [meeting, setMeeting] = useState([]);
   const [activeTab, setActiveTab] = useState("upcoming");
-  const [showModal, setShowModal] = useState(false);
   const [showGmailModal, setShowGmailModal] = useState(false);
   const [returnedData, setReturnedData] = useState('')
+  const [disableGBtn, setDisableGBtn] = useState(false);
 
 
   const GOOGLE_SCOPE = "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly";
@@ -34,7 +36,9 @@ const Home = () => {
     access_type: "offline",
     scope: GOOGLE_SCOPE,
   };
-  const usertoken = JSON.parse(localStorage.getItem('userDetail'))?.token || ''
+  const usertoken = JSON.parse(localStorage.getItem('userToken')) || '';
+
+  console.log(user, 'useruseruser');
 
   const getAccessToken = async (tokenResponse) => {
     setLoader(true);
@@ -81,8 +85,6 @@ const Home = () => {
           },
         }
       );
-      console.log(response, "scheduleresponse");
-      console.log(response.data.entry.meetings, "meeting");
       if (response.status === 200) {
         setMeeting(response.data.entry.meetings);
       }
@@ -94,41 +96,35 @@ const Home = () => {
       setLoader(false);
     }
   };
-  useEffect(() => {
-    fetchEvents();
-  }, [activeTab]);
 
-  useEffect(() => {
-    setUserEmailButton()
-  }, [])
-
-  useEffect(() => {
-    if(returnedData !== ''){
-      setUserEmailButton()
+  const setUserEmailButton = () => {
+    const returnedData = JSON.parse(localStorage.getItem('returnedData'))
+    if (user && user?.picture === null && !returnedData) {
+      setShowGmailModal(true);
+    } else {
+      setShowGmailModal(false);
     }
-    console.log("qyruwegfdjsfd", returnedData)
-  }, [returnedData])
-
+  }
 
   const categorizeEvents = (events) => {
-    console.log(events,"eventeventevent")
+    console.log(events, "eventeventevent")
     const currentTime = Math.floor(Date.now() / 1000);
     const upcomingEvents = [];
     const inprogressEvents = [];
     const pastEvents = [];
     events !== undefined && events?.forEach((event) => {
-        console.log('currentTime', currentTime, 'event.startTime', event.startTime)
-        if (currentTime < event.startTime) {
-          upcomingEvents.push(event);
-        } else if (
-          currentTime >= event.startTime &&
-          currentTime <= event.endTime
-        ) {
-          inprogressEvents.push(event);
-        } else {
-          pastEvents.push(event);
-        }
-      });
+      console.log('currentTime', currentTime, 'event.startTime', event.startTime)
+      if (currentTime < event.startTime) {
+        upcomingEvents.push(event);
+      } else if (
+        currentTime >= event.startTime &&
+        currentTime <= event.endTime
+      ) {
+        inprogressEvents.push(event);
+      } else {
+        pastEvents.push(event);
+      }
+    });
     console.log(events, "events");
     return {
       upcoming: upcomingEvents,
@@ -143,24 +139,34 @@ const Home = () => {
     setActiveTab(tab);
   };
 
-  const setUserEmailButton = () => {
-    const userDetail = JSON.parse(localStorage.getItem('userDetail'))
-    const returnedData = JSON.parse(localStorage.getItem('returnedData'))
-    if (userDetail && userDetail.picture === null && !returnedData) {
-      setShowGmailModal(true);
-    } else {
-      setShowGmailModal(false);
-    }
-  }
-  const [disableGBtn,setDisableGBtn] = useState(false);
-
-  const handleGoogleButton = (e) =>{
+  const handleGoogleButton = (e) => {
     const checked = e.target.checked;
-      setDisableGBtn(checked);
+    setDisableGBtn(checked);
   }
-  console.log(meeting,'meetingmeeting',categorizedEvents[activeTab]);
+  useEffect(() => {
+    fetchEvents();
+  }, [activeTab]);
+
+  useEffect(() => {
+    if (user?.emailAddress) {
+      fetchEvents();
+    }
+  }, [user?.emailAddress]);
+
+  useEffect(() => {
+    setUserEmailButton()
+  }, [])
+
+  useEffect(() => {
+    if (returnedData !== '') {
+      setUserEmailButton()
+    }
+  }, [returnedData])
+
+
   return (
     <>
+      <h1>hereeee</h1>
       <div className="meeting-schedule">
         <div className="calender-sidebar">
           <div className="calender-sidebar__main">
@@ -215,15 +221,15 @@ const Home = () => {
                 <>
                   {categorizedEvents[activeTab]?.length > 0 ? (
                     <table className="events-table">
-                        <thead>
-                          <tr>
-                            <th>S. No</th>
-                            <th>Title</th>
-                            <th>Start Time (IST)</th>
-                            <th>End Time (IST)</th>
-                            <th>Date</th>
-                            <th>Participants</th>
-                          </tr>
+                      <thead>
+                        <tr>
+                          <th>S. No</th>
+                          <th>Title</th>
+                          <th>Start Time (IST)</th>
+                          <th>End Time (IST)</th>
+                          <th>Date</th>
+                          <th>Participants</th>
+                        </tr>
                       </thead>
                       <tbody>
                         {categorizedEvents[activeTab].map((event, index) => {
@@ -330,7 +336,7 @@ const Home = () => {
                     </button>
                     <p className="text-start">
                       <div className="form-check">
-                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={disableGBtn} onChange={(e)=>handleGoogleButton(e)}/>
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={disableGBtn} onChange={(e) => handleGoogleButton(e)} />
                         <label className="form-check-label" for="flexCheckDefault" >
                           By granting access, you authorize the ability to read and send emails, facilitating a more efficient meeting scheduling process.
                         </label>

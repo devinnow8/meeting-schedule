@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -9,33 +9,33 @@ import PropTypes from 'prop-types';
 import { useNylas } from '@nylas/nylas-react';
 import Logo from "../../assets/images/logo.png";
 import { Navigate } from "react-router-dom";
+import UserContext from "../../hooks/UserContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
   const [email, setEmail] = useState();
   const nylas = useNylas();
   const [isLoading, setIsLoading] = useState(false);
 
-  const [disableConnect,setDisableConnect] = useState(false);
+  const [disableConnect, setDisableConnect] = useState(false);
+  const { user } = useContext(UserContext);
 
-  const handleConnectEmail = (e) =>{
+  const handleConnectEmail = (e) => {
     const checked = e.target.checked;
     setDisableConnect(checked);
   }
 
-  useEffect(()=>{
-    const userId = JSON.parse(localStorage.getItem('userDetail'))?.id || ''
-  if (userId !== null) {
-    navigate("/home")
-  }
-  },[])
+  useEffect(() => {
+    const userToken = JSON.parse(localStorage.getItem('userToken')) || ''
+    if (user) {
+      navigate("/home")
+    }
+  }, [user])
 
   const loginUser = (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    console.log("nylas", nylas)
 
     nylas.authWithRedirect({
       emailAddress: email,
@@ -47,11 +47,11 @@ const Login = () => {
   return (
     <section className="signup-hero">
       <div className="container">
-          <div className="logo">
-            <Link to="/login">
-              <img src={Logo} alt="schedule scence"/>
-            </Link>
-          </div>
+        <div className="logo">
+          <Link to="/login">
+            <img src={Logo} alt="schedule scence" />
+          </Link>
+        </div>
         <div className="signup-hero__inner">
           <div className="row align-items-center">
             <div className="col-md-5">
@@ -62,7 +62,7 @@ const Login = () => {
             <div className="col-md-7">
               <div className="signup-hero__content">
                 <h1 className="title">
-                  <span>AI -Powered</span><br/>
+                  <span>AI -Powered</span><br />
                   <span className="title-inner">Automated Scheduling</span>
                 </h1>
                 <p className="desc">
@@ -81,7 +81,7 @@ const Login = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
-                      <button className={`login-btn ${disableConnect?"login-enable":"login-disbaled"}`} type="submit" disabled={!disableConnect}>
+                      <button className={`login-btn ${disableConnect ? "login-enable" : "login-disbaled"}`} type="submit" disabled={!disableConnect}>
                         {isLoading ? 'Connecting...' : 'Connect'}
                       </button>
                     </form>
@@ -89,9 +89,9 @@ const Login = () => {
                 </div>
                 <div className="note">
                   <div className="form-check">
-                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={disableConnect} onChange={(e)=>handleConnectEmail(e)}/>
+                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={disableConnect} onChange={(e) => handleConnectEmail(e)} />
                     <label className="form-check-label" for="flexCheckDefault" >
-                    I have been given access to check my <b>Calendar </b>.
+                      I have been given access to check my <b>Calendar </b>.
                     </label>
                   </div>
                   <div className="imp-text">

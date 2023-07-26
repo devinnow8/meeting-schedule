@@ -5,16 +5,14 @@ import NavBar from "../components/NavBar";
 const Layout = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const userId = JSON.parse(localStorage.getItem('userDetail'))?.id || ''
-
+  const userToken = JSON.parse(localStorage.getItem('userToken')) || ''
 
   useEffect(() => {
-    console.log("userId layout: ", userId)
-    if (userId !== null) {
-      if(location.pathname === '/login'){
+    if (userToken !== '') {
+      if (location.pathname === '/login') {
         navigate("/home");
       }
-    }else{
+    } else {
       navigate("/login");
 
     }
@@ -22,7 +20,7 @@ const Layout = (props) => {
 
   return (
     <div className="main-layout">
-      {userId !== '' && <NavBar />}
+      {userToken !== '' && <NavBar />}
       <div className="inner-layout">{props.children}</div>
     </div>
   );
