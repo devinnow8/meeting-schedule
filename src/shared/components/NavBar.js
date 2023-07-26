@@ -14,6 +14,7 @@ const NavBar = () => {
   const userEmail = userDetails?.emailAddress || ''
 
   const [dropdown, setDropdown] = useState(false);
+
   const navigate = useNavigate();
   const logOut = () => {
     localStorage.clear();
@@ -37,8 +38,7 @@ const NavBar = () => {
           </div>
 
           {userId !== 'null' && (
-            <ul className="nav no-search">
-
+            <ul className="nav no-search" >
               <li
                 className="nav-item user-profile"
                 onClick={() => setDropdown((prev) => !prev)}
@@ -60,15 +60,18 @@ const NavBar = () => {
                   <div className="inner">
                     <div className="user-details">
                       {
-                        userName !== "null" ? (<>
-                          <span className="user-name"> <AiOutlineUser /> <span className="ms-2">{userEmail}</span></span>
+                        userName !== "null" ?(<>
+                        <span className="user-name"> <AiOutlineUser/> <span className="ms-2">{userEmail}</span></span>                  
                         </>
-                        ) : (
-                          <span></span>
+                        ):(
+                          <span></span> 
                         )
                       }
-                      <div className="logout-btn" onClick={logOut}>
-                        <AiOutlineLogout /> <span>Logout</span>
+                      <div className="logout-btn" >
+                          <span onClick={logOut} className="logout-btn__inner">
+                            <AiOutlineLogout /> 
+                            <span className="logout-text">Logout</span>
+                          </span>
                       </div>
                     </div>
                   </div>

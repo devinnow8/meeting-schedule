@@ -21,11 +21,10 @@ const Home = () => {
   const [activeTab, setActiveTab] = useState("upcoming");
   const [showModal, setShowModal] = useState(false);
   const [showGmailModal, setShowGmailModal] = useState(false);
-  const [returnedData, setReturnedData] = useState({})
+  const [returnedData, setReturnedData] = useState('')
 
 
-  const GOOGLE_SCOPE =
-    "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly";
+  const GOOGLE_SCOPE = "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly";
   const BASE_URL = "https://calendar-service-agox.onrender.com";
   const LOGIN_URL = "https://calendar-service-agox.onrender.com/login";
   const GOOGLE_AUTH_SETTINGS = {
@@ -57,16 +56,10 @@ const Home = () => {
           redirectURL: GOOGLE_AUTH_SETTINGS.redirect_uri,
         });
         if (returnedData) {
-          console.log("weyfudsf")
-        }
-        console.log(!!returnedData, typeof returnedData, "qw8rysgfdfdf")
-        console.log(returnedData, "returnedData")
-        localStorage.setItem("returnedData", JSON.stringify(returnedData));
-        if (returnedData) {
+          localStorage.setItem("returnedData", JSON.stringify(returnedData));
           showToast.success("  Connected successfully");
-          setShowModal(true)
+          setReturnedData(returnedData)
         }
-        setReturnedData(returnedData)
       } catch (err) {
         console.log(err);
       }
@@ -108,21 +101,22 @@ const Home = () => {
   useEffect(() => {
     setUserEmailButton()
   }, [])
-  useEffect(() => {
-    setUserEmailButton()
-  }, [returnedData])
 
   useEffect(() => {
-    setUserEmailButton()
-  }, [showModal])
-  console.log("qyruwegfdjsfd", returnedData)
+    if(returnedData !== ''){
+      setUserEmailButton()
+    }
+    console.log("qyruwegfdjsfd", returnedData)
+  }, [returnedData])
+
+
   const categorizeEvents = (events) => {
+    console.log(events,"eventeventevent")
     const currentTime = Math.floor(Date.now() / 1000);
     const upcomingEvents = [];
     const inprogressEvents = [];
     const pastEvents = [];
-    events !== undefined &&
-      events?.forEach((event) => {
+    events !== undefined && events?.forEach((event) => {
         console.log('currentTime', currentTime, 'event.startTime', event.startTime)
         if (currentTime < event.startTime) {
           upcomingEvents.push(event);
@@ -158,26 +152,13 @@ const Home = () => {
       setShowGmailModal(false);
     }
   }
+  const [disableGBtn,setDisableGBtn] = useState(false);
 
-  // toast('message', {
-  //   toastId: 'message',
-  //   type: "success",
-  //   position: "top-right",
-  //   autoClose: 1500,
-  //   hideProgressBar: false,
-  //   closeOnClick: true,
-  //   pauseOnHover: true,
-  //   draggable: false,
-  //   progress: undefined,
-  //   style: {
-  //     fontFamily: "inherit",
-  //     fontSize: "15px",
-  //     fontWeight: 500,
-  //     marginBottom: "7px",
-  //     display: "inlineBlock",
-  //     color: "#198754",
-  //   },
-  // });
+  const handleGoogleButton = (e) =>{
+    const checked = e.target.checked;
+      setDisableGBtn(checked);
+  }
+  console.log(meeting,'meetingmeeting',categorizedEvents[activeTab]);
   return (
     <>
       <div className="meeting-schedule">
@@ -232,17 +213,17 @@ const Home = () => {
                 <p>Loading...</p>
               ) : (
                 <>
-                  {meeting?.length ? (
+                  {categorizedEvents[activeTab]?.length > 0 ? (
                     <table className="events-table">
-                      <thead>
-                        <tr>
-                          <th>S. No</th>
-                          <th>Title</th>
-                          <th>Start Time (IST)</th>
-                          <th>End Time (IST)</th>
-                          <th>Date</th>
-                          <th>Participants</th>
-                        </tr>
+                        <thead>
+                          <tr>
+                            <th>S. No</th>
+                            <th>Title</th>
+                            <th>Start Time (IST)</th>
+                            <th>End Time (IST)</th>
+                            <th>Date</th>
+                            <th>Participants</th>
+                          </tr>
                       </thead>
                       <tbody>
                         {categorizedEvents[activeTab].map((event, index) => {
@@ -335,7 +316,7 @@ const Home = () => {
 
           {showGmailModal && (
 
-            <div className="modal confirm-modal  " role="dialog" >
+            <div className="modal confirm-modal" role="dialog" >
               <div className="modal-dialog animate__animated animate__backInDown" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -343,13 +324,19 @@ const Home = () => {
                   </div>
                   <div className="modal-body">
                     <h5 className="modal-title">Give access to read and send Email</h5>
-                    <button className="google" onClick={() => googleLogin()}>
+                    <button className={`googleBtn ${!disableGBtn ? 'googleDisable' : 'googleEnable'}`} onClick={() => googleLogin()} disabled={!disableGBtn}>
                       <GoogleIconSvg />
                       <span className="google-text">Connect your Gmail</span>
                     </button>
-                    <p>  <span className="star">*</span>By clicking on it, you give us access to read your email for a better meeting schedule</p>
+                    <p className="text-start">
+                      <div className="form-check">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={disableGBtn} onChange={(e)=>handleGoogleButton(e)}/>
+                        <label className="form-check-label" for="flexCheckDefault" >
+                          By granting access, you authorize the ability to read and send emails, facilitating a more efficient meeting scheduling process.
+                        </label>
+                      </div>
+                    </p>
                   </div>
-
                 </div>
               </div>
             </div>

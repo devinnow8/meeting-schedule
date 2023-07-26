@@ -43,6 +43,9 @@ h2 {
     z-index: 99999;
   }
 }
+.form-check-input[type=checkbox] {
+  border-color: #000;
+}
 @import "./login.scss";
 @import "./home.scss";
 @import "./nav-bar.scss";

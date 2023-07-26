@@ -119,7 +119,7 @@
             color: #103b72;
             text-align: left;
             border-radius: 6px;
-            padding: 5px 0;
+            padding: 0 0 5px;
             position: absolute;
             z-index: 1;
             top: 30px;
@@ -134,13 +134,17 @@
               margin-left: -5px;
               border-width: 10px;
               border-style: solid;
-              border-color: transparent transparent white transparent;
+              border-color: transparent transparent #103b72 transparent;
             }
             .moreemail-title{
               padding: 0.6rem 0.6rem 0.6rem 2rem;
-              border-bottom:1px solid #CDCDCD;
+              // border-bottom:1px solid #CDCDCD;
+              background-color: #103b72;
+              color: #fff;
+              border-radius: 8px 8px 0 0;
               h4{
                 margin:0;
+                font-weight: bold;
               }
             }
             .mail{
@@ -216,7 +220,7 @@
     //   margin: 12px 0px 42px 0px;
     // }
     &--btn {
-      .google {
+      .googleBtn {
         display: flex;
         align-items: center;
         margin: auto;
@@ -224,7 +228,6 @@
         background-color: #fff;
         box-shadow: 0px 3px 14px 2px rgba(0, 0, 0, 0.1);
         padding: 14px 20px;
-        cursor: pointer;
         margin-bottom: 18px;
         border: none;
         color: #696969;
@@ -236,6 +239,13 @@
         > svg {
           margin-right: 10px;
         }
+      }
+      .googleEnable{
+        cursor: pointer;
+      }
+      .googleDisable{
+        cursor: not-allowed;
+        filter: blur(1px);
       }
     }
     ul {

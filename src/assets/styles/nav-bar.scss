@@ -27,10 +27,8 @@
   top:0;
   width: 100%;
   .navbar {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
+    display:flex;
     align-items: center;
-    height: 50px;
     img {
       width: auto;
       height: 33px;
@@ -38,15 +36,10 @@
       justify-self: start;
     }
     ul {
-      list-style: none;
-      display: grid;
-      // grid-template-columns: repeat(6, 1fr);
-      justify-self: end;
-      margin-right: 20px;
-      position: relative;
       .user-profile{
         display: flex;
         align-items: center;
+        cursor:pointer;
         .user-name{
           margin-right:4px;
           color:#31608C;
@@ -97,12 +90,14 @@
         margin-bottom: 0.5rem;
         font-weight: 500;
       }
-      span {
-        cursor: pointer;
-      }
       .logout-btn{
+        .logout-btn__inner{
+          .logout-text{
+            margin-left:0.5rem;
+          }
+        }
         span{
-          margin-left:0.5rem;
+          cursor: pointer;
           font-weight: 500;
         }
       }
@@ -317,27 +312,6 @@ input {
   }
 
   /* MOBILE NAVIGATION */
-
-  .navbar ul {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    justify-content: start;
-    top: 55px;
-    background-color: #fff;
-    width: 100%;
-    height: calc(100vh - 55px);
-    transform: translate(-101%);
-    text-align: center;
-  }
-
-  .navbar li {
-    padding: 15px;
-  }
-
-  .navbar li:first-child {
-    margin-top: 50px;
-  }
 
   .navbar li a {
     font-size: 1rem;
