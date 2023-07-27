@@ -16,6 +16,7 @@ const NavBar = () => {
     navigate("/login");
   };
 
+  console.log(user,'useruseruser==>>>');
   return (
     <header className="header">
       <div className="container-fluid">

@@ -23,15 +23,15 @@ const Initial = () => {
                 .then((response) => {
                     const user = JSON.parse(response);
                     setToken(user.token);
-                    localStorage.setItem('userToken', JSON.stringify(user?.token))
-                    // navigate("/home")
+                    localStorage.setItem('userToken', (user?.token))
+                    navigate("/home")
                 })
                 .catch((error) => {
                     console.error('An error occurred parsing the response:', error);
                 });
         } else {
             console.log('hereeeeee222');
-            const userToken = JSON.parse(localStorage.getItem('userToken')) || ''
+            const userToken = (localStorage.getItem('userToken')) || ''
 
             if (!userToken) {
                 navigate("/login");

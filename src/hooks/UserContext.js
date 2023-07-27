@@ -5,8 +5,8 @@ const UserContext = createContext();
 
 export function UserProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
-    console.log(user, "UserProvider rendered!");
+    const [token, setToken] = useState(localStorage.getItem("userToken"));
+    console.log(user, token,"token");
 
     const fetchUserData = async (token) => {
         try {

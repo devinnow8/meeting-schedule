@@ -26,7 +26,7 @@ const Login = () => {
   }
 
   useEffect(() => {
-    const userToken = JSON.parse(localStorage.getItem('userToken')) || ''
+    const userToken = (localStorage.getItem('userToken')) || ''
     if (user) {
       navigate("/home")
     }

@@ -5,7 +5,7 @@ import NavBar from "../components/NavBar";
 const Layout = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const userToken = JSON.parse(localStorage.getItem('userToken')) || ''
+  const userToken = (localStorage.getItem('userToken'))
 
   useEffect(() => {
     if (userToken !== '') {
@@ -17,10 +17,9 @@ const Layout = (props) => {
 
     }
   }, []);
-
   return (
     <div className="main-layout">
-      {userToken !== '' && <NavBar />}
+      {userToken && userToken !== '' && <NavBar />}
       <div className="inner-layout">{props.children}</div>
     </div>
   );

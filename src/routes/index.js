@@ -6,7 +6,7 @@ import Layout from "../shared/layout";
 
 const PrivateRoute = ({ children }) => {
 
-  const userToken = JSON.parse(localStorage.getItem('userToken')) || ''
+  const userToken = (localStorage.getItem('userToken')) || ''
   if (userToken === '') {
     return <Navigate to="/login" />;
   }

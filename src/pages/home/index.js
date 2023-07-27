@@ -29,6 +29,7 @@ const Home = () => {
   const GOOGLE_SCOPE = "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly";
   const BASE_URL = "https://calendar-service-agox.onrender.com";
   const LOGIN_URL = "https://calendar-service-agox.onrender.com/login";
+
   const GOOGLE_AUTH_SETTINGS = {
     flow: "auth-code",
     redirect_uri: "http://localhost:3000",
@@ -36,7 +37,7 @@ const Home = () => {
     access_type: "offline",
     scope: GOOGLE_SCOPE,
   };
-  const usertoken = JSON.parse(localStorage.getItem('userToken')) || '';
+  const usertoken = (localStorage.getItem('userToken')) ;
 
   console.log(user, 'useruseruser');
 
@@ -60,8 +61,8 @@ const Home = () => {
           redirectURL: GOOGLE_AUTH_SETTINGS.redirect_uri,
         });
         if (returnedData) {
-          localStorage.setItem("returnedData", JSON.stringify(returnedData));
-          showToast.success("  Connected successfully");
+          localStorage.setItem("returnedData",(returnedData));
+          showToast.success("Connected successfully");
           setReturnedData(returnedData)
         }
       } catch (err) {
@@ -98,8 +99,8 @@ const Home = () => {
   };
 
   const setUserEmailButton = () => {
-    const returnedData = JSON.parse(localStorage.getItem('returnedData'))
-    if (user && user?.picture === null && !returnedData) {
+    const returnedData = (localStorage.getItem('returnedData'))
+    if (user && user?.picture === null && !returnedData) {      
       setShowGmailModal(true);
     } else {
       setShowGmailModal(false);
@@ -158,15 +159,12 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
-    if (returnedData !== '') {
       setUserEmailButton()
-    }
   }, [returnedData])
 
 
   return (
     <>
-      <h1>hereeee</h1>
       <div className="meeting-schedule">
         <div className="calender-sidebar">
           <div className="calender-sidebar__main">
@@ -321,7 +319,6 @@ const Home = () => {
         <div className="calender-sidebar__main--btn  ">
 
           {showGmailModal && (
-
             <div className="modal confirm-modal" role="dialog" >
               <div className="modal-dialog animate__animated animate__backInDown" role="document">
                 <div className="modal-content">
