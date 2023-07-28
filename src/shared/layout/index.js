@@ -14,7 +14,6 @@ const Layout = (props) => {
       }
     } else {
       navigate("/login");
-
     }
   }, []);
   return (

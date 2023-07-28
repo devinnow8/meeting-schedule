@@ -25,19 +25,25 @@ const Home = () => {
   const [returnedData, setReturnedData] = useState('')
   const [disableGBtn, setDisableGBtn] = useState(false);
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+const LOGIN_URL = process.env.REACT_APP_BASE_URL+'/login';
+const GOOGLE_SCOPE = process.env.REACT_APP_GOOGLE_SCOPE;
+const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+const url = `email profile ${GOOGLE_SCOPE}userinfo.email ${GOOGLE_SCOPE}userinfo.profile ${GOOGLE_SCOPE}gmail.send  ${GOOGLE_SCOPE}gmail.readonly`
 
-  const GOOGLE_SCOPE = "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly";
-  const BASE_URL = "https://calendar-service-agox.onrender.com";
-  const LOGIN_URL = "https://calendar-service-agox.onrender.com/login";
+console.log(BASE_URL,"BASE_URL");
+console.log(LOGIN_URL,"LOGIN_URL");
+console.log(GOOGLE_SCOPE,"GOOGLE_SCOPE")
+console.log(url,"url")
 
   const GOOGLE_AUTH_SETTINGS = {
     flow: "auth-code",
-    redirect_uri: "http://localhost:3000",
+    REDIRECT_URI,
     prompt: "consent",
     access_type: "offline",
     scope: GOOGLE_SCOPE,
   };
-  const usertoken = (localStorage.getItem('userToken')) ;
+  const usertoken = (localStorage.getItem('userToken'));
 
   console.log(user, 'useruseruser');
 
@@ -58,7 +64,7 @@ const Home = () => {
       try {
         const returnedData = await getAccessToken({
           ...tokenResponse,
-          redirectURL: GOOGLE_AUTH_SETTINGS.redirect_uri,
+          redirectURL: GOOGLE_AUTH_SETTINGS.REDIRECT_URI,
         });
         if (returnedData) {
           localStorage.setItem("returnedData",(returnedData));
