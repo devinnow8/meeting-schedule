@@ -33,7 +33,7 @@ const NavBar = () => {
                 className="nav-item user-profile"
                 onClick={() => setDropdown((prev) => !prev)}
               >
-                {user?.picture !== '' ?
+                {user?.picture ?
                   <>
                     <img src={user?.picture} alt="user" className="user-name" referrerPolicy="no-referrer" />
                     <span className="user-name">{user?.name} <img src={DownArrow} alt="arrow down" /></span>

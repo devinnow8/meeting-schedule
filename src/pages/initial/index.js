@@ -21,6 +21,7 @@ const Initial = () => {
             nylas
                 .exchangeCodeFromUrlForToken()
                 .then((response) => {
+                    console.log(response,'responseresponseresponse==>>');
                     const user = JSON.parse(response);
                     setToken(user.token);
                     localStorage.setItem('userToken', (user?.token))

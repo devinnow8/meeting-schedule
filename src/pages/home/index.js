@@ -26,32 +26,33 @@ const Home = () => {
   const [disableGBtn, setDisableGBtn] = useState(false);
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const LOGIN_URL = process.env.REACT_APP_BASE_URL+'/login';
 const GOOGLE_SCOPE = process.env.REACT_APP_GOOGLE_SCOPE;
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+console.log(GOOGLE_SCOPE,'GOOGLE_SCOPEGOOGLE_SCOPE==>>')
 const url = `email profile ${GOOGLE_SCOPE}userinfo.email ${GOOGLE_SCOPE}userinfo.profile ${GOOGLE_SCOPE}gmail.send  ${GOOGLE_SCOPE}gmail.readonly`
 
 console.log(BASE_URL,"BASE_URL");
-console.log(LOGIN_URL,"LOGIN_URL");
 console.log(GOOGLE_SCOPE,"GOOGLE_SCOPE")
 console.log(url,"url")
 
   const GOOGLE_AUTH_SETTINGS = {
     flow: "auth-code",
-    REDIRECT_URI,
+    redirect_uri: REDIRECT_URI,
     prompt: "consent",
     access_type: "offline",
-    scope: GOOGLE_SCOPE,
+    scope: url,
   };
   const usertoken = (localStorage.getItem('userToken'));
 
   console.log(user, 'useruseruser');
 
   const getAccessToken = async (tokenResponse) => {
+    console.log(tokenResponse,'fghffgh ');
     setLoader(true);
-    const result = await axios.post(LOGIN_URL, {
+    const result = await axios.post(`${BASE_URL}/login`, {
       tokenResponse,
     });
+    console.log(result,'resultresult=>');
     setLoader(false);
     const authHeader = result.headers.get("Authorization");
     const token = authHeader ? authHeader.split(" ")[1] : null;
@@ -60,19 +61,20 @@ console.log(url,"url")
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      console.log(tokenResponse, "tokenResponse");
       try {
+        console.log(tokenResponse, "tokenResponse",REDIRECT_URI);
         const returnedData = await getAccessToken({
           ...tokenResponse,
-          redirectURL: GOOGLE_AUTH_SETTINGS.REDIRECT_URI,
+          redirect_uri: REDIRECT_URI,
         });
+        console.log(returnedData,'returnedDatareturnedDatareturnedData');
         if (returnedData) {
           localStorage.setItem("returnedData",(returnedData));
-          showToast.success("Connected successfully");
+          // showToast.success("Connected successfully");
           setReturnedData(returnedData)
         }
       } catch (err) {
-        console.log(err);
+        console.log(err,'errrrrrrrr==>>');
       }
     },
     ...GOOGLE_AUTH_SETTINGS,
@@ -160,13 +162,9 @@ console.log(url,"url")
     }
   }, [user?.emailAddress]);
 
-  useEffect(() => {
-    setUserEmailButton()
-  }, [])
+  useEffect(setUserEmailButton, [user]);
 
-  useEffect(() => {
-      setUserEmailButton()
-  }, [returnedData])
+  useEffect(setUserEmailButton, [user, returnedData]);
 
 
   return (
