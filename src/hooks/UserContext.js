@@ -6,12 +6,13 @@ const UserContext = createContext();
 export function UserProvider({ children }) {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem("userToken"));
+    const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
     console.log(user, token,"token");
 
     const fetchUserData = async (token) => {
         try {
             const response = await axios.get(
-                "http://192.168.1.58:9000/api/v1/tokens/filterByEmail",
+                `${BACKEND_BASE_URL}/api/v1/tokens/filterByEmail`,
                 {
                     headers: {
                         "Content-Type": "application/json",
