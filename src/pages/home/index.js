@@ -185,14 +185,15 @@ console.log(url,"url")
                 </div>
               </li>
 
-              <li className={activeTab === "inprogress" ? "active" : ""}
-                onClick={() => handleTabClick("inprogress")}>
+              <li className={activeTab === "in Progress" ? "active" : ""}
+                onClick={() => handleTabClick("in Progress")}>
                 <div className="sidebar-icon">
-                  <img src={activeTab === "inprogress" ? InProgressWhite : InProgress} alt="InProgress" />
+                  <img src={activeTab === "in Progress" ? InProgressWhite : InProgress} alt="InProgress" />
                 </div>
                 <span className="sidebar-text">In Progress</span>
+                
                 <div className="sidebar-arrow-icon">
-                  <img src={activeTab === "inprogress" ? ArrowRightWhite : ArrowRight} alt="ArrowRight" />
+                  <img src={activeTab === "in Progress" ? ArrowRightWhite : ArrowRight} alt="ArrowRight" />
                 </div>
               </li>
 
@@ -310,10 +311,10 @@ console.log(url,"url")
                     <>
                       <div className="no-events">
                         <img src={calIcon} className="img-fluid" alt="" />
-                        <h5>No {activeTab} Events Yet</h5>
+                        <h5>No {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Events Yet</h5>
                         <p>Share event type links to schedule events</p>
                       </div>
-                    </>
+                    </> 
                   )}
                 </>
               )}

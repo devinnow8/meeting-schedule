@@ -21,11 +21,11 @@ const NavBar = () => {
     <header className="header">
       <div className="container-fluid">
         <nav className="navbar">
-          <img src={logo} alt="Company Logo" className="logo" />
+          <img src={logo} alt="company logo" className="logo" />
 
           <div className="menu-toggle" id="mobile-menu">
 
-          </div>
+          </div> 
 
           {user?._id !== 'null' && (
             <ul className="nav no-search" >
@@ -57,7 +57,7 @@ const NavBar = () => {
                           <span></span>
                         )
                       }
-                      <div className="logout-btn" >
+                      <div className="logout-btn">
                         <span onClick={logOut} className="logout-btn__inner">
                           <AiOutlineLogout />
                           <span className="logout-text">Logout</span>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 import { Home, Login, Initial } from "../pages";
 import Layout from "../shared/layout";
+import PageNotFound from "../pages/pageNotFound";
 
 const PrivateRoute = ({ children }) => {
 
@@ -15,9 +15,10 @@ const PrivateRoute = ({ children }) => {
 };
 
 const RouteComponent = () => {
+  const [notFound, setNotFound] = useState(false)
   return (
     <BrowserRouter>
-      <Layout>
+      <Layout notFound={notFound}>
         <Routes>
           <Route path="/" element={<Initial />
           }
@@ -32,7 +33,8 @@ const RouteComponent = () => {
           />
           <Route path="/login" element={<Login />} />
 
-          <Route path="*" element={<Navigate to="/" />} />
+          {/* <Route path="*" element={<PageNotFound/>} /> */}
+          <Route path="*" element={<PageNotFound setNotFound={setNotFound}/>} />
         </Routes>
       </Layout>
     </BrowserRouter>

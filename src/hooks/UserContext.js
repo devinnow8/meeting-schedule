@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 const UserContext = createContext();
 
@@ -22,10 +22,10 @@ export function UserProvider({ children }) {
             );
             console.log(JSON.stringify(response.data), "contextresponse");
             if (response.data) {
-
                 setUser(response.data);
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.log(error);
         }
     };
@@ -45,3 +45,4 @@ export function UserProvider({ children }) {
 }
 
 export default UserContext;
+
