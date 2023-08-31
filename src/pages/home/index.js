@@ -15,6 +15,8 @@ import 'animate.css';
 import ArrowRightWhite from "../../assets/images/icons/arrow-right-white.png";
 import { showToast } from "../toast";
 import UserContext from "../../hooks/UserContext";
+import { REACT_APP_REDIRECT_URI, REACT_APP_GOOGLE_SCOPE, REACT_APP_BASE_URL } from "../../shared/constants";
+
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -25,9 +27,10 @@ const Home = () => {
   const [returnedData, setReturnedData] = useState('')
   const [disableGBtn, setDisableGBtn] = useState(false);
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-const GOOGLE_SCOPE = process.env.REACT_APP_GOOGLE_SCOPE;
-const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+const BASE_URL = REACT_APP_BASE_URL;
+const GOOGLE_SCOPE = REACT_APP_GOOGLE_SCOPE;
+const REDIRECT_URI = REACT_APP_REDIRECT_URI;
+
 console.log(GOOGLE_SCOPE,'GOOGLE_SCOPEGOOGLE_SCOPE==>>')
 const url = `email profile ${GOOGLE_SCOPE}userinfo.email ${GOOGLE_SCOPE}userinfo.profile ${GOOGLE_SCOPE}gmail.send  ${GOOGLE_SCOPE}gmail.readonly`
 
