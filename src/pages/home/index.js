@@ -214,7 +214,7 @@ const Home = () => {
                 <div className="sidebar-icon">
                   <img
                     src={
-                      activeTab === "in Progress" ? InProgressWhite : InProgress
+                      activeTab === "inprogress" ? InProgressWhite : InProgress
                     }
                     alt="InProgress"
                   />
@@ -224,7 +224,7 @@ const Home = () => {
                 <div className="sidebar-arrow-icon">
                   <img
                     src={
-                      activeTab === "in Progress" ? ArrowRightWhite : ArrowRight
+                      activeTab === "inprogress" ? ArrowRightWhite : ArrowRight
                     }
                     alt="ArrowRight"
                   />
