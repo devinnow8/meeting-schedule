@@ -8,24 +8,24 @@
     padding: 1rem;
     margin: 0;
   }
-  &__cardwrapper{
-    max-width:100%;
+  &__cardwrapper {
+    max-width: 100%;
     margin-left: 300px;
     overflow: auto;
     .breadCrumb-title {
-      background-color: #EFEFEF;
+      background-color: #efefef;
       padding: 1rem;
       margin: 0;
       color: #555555;
       font-weight: 600;
       text-transform: capitalize;
       font-size: 20px;
-  }
+    }
     .meeting-schedule__card {
       border-radius: 14px;
       background: #fff;
-      margin-top:74px;
-      .content_load{
+      margin-top: 74px;
+      .content_load {
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -61,59 +61,64 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-  }
-    .events-table{
+    }
+    .events-table {
       width: 100%;
       border-collapse: collapse;
-      thead{
-        th{
+      thead {
+        th {
           background-color: #f2f2f2;
           text-align: center;
           padding: 12px;
           white-space: nowrap;
         }
       }
-      tbody{
-        .participant{
+      tbody {
+        .participant {
           display: flex;
-          justify-content: center;
-          .badges{
+          justify-content: left;
+          width: 39%;
+          margin: 0 auto;
+          @media (max-width: 1800px) {
+            width: 80%;
+          }
+          .badges {
             display: flex;
             align-items: center;
-            background-color: #E5F2FF;
+            background-color: #e5f2ff;
             padding: 4px 8px;
             font-weight: 500;
-              .email-title {
-                background-color: #023B72;
-                color: #fff;
-                border-radius: 100%;
-                display: block;
-                height: 25px;
-                width: 25px;
-              }
-            }       
+            .email-title {
+              background-color: #023b72;
+              color: #fff;
+              border-radius: 100%;
+              display: block;
+              height: 25px;
+              width: 25px;
+            }
           }
-        .tooltips{
+        }
+        .tooltips {
           position: relative;
           display: inline-block;
           border-bottom: 1px dotted black;
-          border:none;
+          border: none;
           background-color: transparent;
-          color:#023B72;
+          color: #023b72;
           font-weight: bold;
-          margin-left: 8px;  
+          margin-left: 8px;
           height: 0;
-          .tooltips-text{
+          .tooltips-text {
             display: block;
             line-height: 2;
             white-space: nowrap;
           }
-          &:hover .tooltipsEmail{
+          &:hover .tooltipsEmail {
             visibility: visible;
           }
-          .tooltipsEmail{
+          .tooltipsEmail {
             visibility: hidden;
-            width:350px;
+            width: 350px;
             background-color: #fff;
             color: #103b72;
             text-align: left;
@@ -125,7 +130,7 @@
             right: -10px;
             margin-left: -60px;
             filter: drop-shadow(2px 4px 6px #cccc);
-            &::after{
+            &::after {
               content: "";
               position: absolute;
               bottom: 100%;
@@ -135,24 +140,24 @@
               border-style: solid;
               border-color: transparent transparent #103b72 transparent;
             }
-            .moreemail-title{
+            .moreemail-title {
               padding: 0.6rem 0.6rem 0.6rem 2rem;
               // border-bottom:1px solid #CDCDCD;
               background-color: #103b72;
               color: #fff;
               border-radius: 8px 8px 0 0;
-              h4{
-                margin:0;
+              h4 {
+                margin: 0;
                 font-weight: bold;
               }
             }
-            .mail{
+            .mail {
               padding: 0.5rem 0.5rem 0.5rem 2rem;
-              border-bottom:1px solid #CDCDCD;
-              display:flex;
+              border-bottom: 1px solid #cdcdcd;
+              display: flex;
               .email-title {
                 text-align: center;
-                background-color: #023B72;
+                background-color: #023b72;
                 color: #fff;
                 border-radius: 100%;
                 display: block;
@@ -161,24 +166,24 @@
                 text-transform: uppercase;
                 font-weight: 500;
               }
-              .email-text{
+              .email-text {
                 margin-left: 8px;
               }
-              &:last-child{
-                border-bottom:0px;
+              &:last-child {
+                border-bottom: 0px;
               }
             }
-          }     
+          }
         }
-        tr{
-          &:hover{
+        tr {
+          &:hover {
             background-color: #dfedff;
           }
-          td{
-            padding:10px;
+          td {
+            padding: 10px;
             border-bottom: 1px solid #ddd;
             text-align: center;
-            color: #023B72;
+            color: #023b72;
             font-weight: 500;
           }
         }
@@ -198,13 +203,13 @@
 .calender-sidebar {
   position: fixed;
   left: 0;
-  top:74px;
+  top: 74px;
   height: 100%;
   z-index: 9;
   width: 100%;
   max-width: 300px;
-    &__main {
-    background-color: #F2F9FF;
+  &__main {
+    background-color: #f2f9ff;
     height: 100%;
     text-align: center;
     h2 {
@@ -239,10 +244,10 @@
           margin-right: 10px;
         }
       }
-      .googleEnable{
+      .googleEnable {
         cursor: pointer;
       }
-      .googleDisable{
+      .googleDisable {
         cursor: not-allowed;
         filter: blur(1px);
       }
@@ -250,15 +255,15 @@
     ul {
       // margin-top: 20px;
       padding-left: 0;
-      .active{
-        background-color:#023B72;
-        color:#fff;
+      .active {
+        background-color: #023b72;
+        color: #fff;
       }
       li {
         list-style: none;
         display: flex;
         align-items: center;
-        color: #023B72;
+        color: #023b72;
         font-weight: bold;
         font-size: 18px;
         padding: 1rem;
@@ -268,7 +273,7 @@
           max-width: 40px;
           line-height: 0;
           text-align: left;
-      }
+        }
         .sidebar-text {
           width: 100%;
           max-width: 150px;
@@ -285,11 +290,11 @@
   background: #00000099;
   z-index: 9999;
   .modal-header {
-    background-color: #F2F9FF;
+    background-color: #f2f9ff;
     padding: 40px;
     border: unset;
     border-radius: 20px !important;
-    img{
+    img {
       margin: 0 auto;
     }
   }
@@ -301,14 +306,14 @@
   }
   .modal-body {
     text-align: center;
-    .star{
-      color:#e64a3f
+    .star {
+      color: #e64a3f;
     }
     h5 {
       font-size: 24px;
-    font-weight: 800;
-    color: #023B72;
-    margin: 30px 0;
+      font-weight: 800;
+      color: #023b72;
+      margin: 30px 0;
     }
     button {
       border-radius: 5px;
