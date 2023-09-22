@@ -79,6 +79,7 @@
           justify-content: left;
           width: 39%;
           margin: 0 auto;
+          align-items: center;
           @media (max-width: 1800px) {
             width: 55%;
           }
@@ -107,11 +108,11 @@
           color: #023b72;
           font-weight: bold;
           margin-left: 8px;
-          height: 0;
           .tooltips-text {
             display: block;
             line-height: 2;
             white-space: nowrap;
+            font-size: 14px;
           }
           &:hover .tooltipsEmail {
             visibility: visible;
